@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test User Baru</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success {
+            color: #28a745;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .info {
+            color: #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test User Baru - SOCISAFE</h1>
+    
+    <div class="test-section">
+        <h2>🔧 Persiapan Test</h2>
+        <p>Test ini akan memverifikasi bahwa user baru dimulai dari posisi 0, bukan posisi 32.</p>
+        
+        <button class="test-button" onclick="clearLocalStorage()">🗑️ Bersihkan localStorage</button>
+        <button class="test-button" onclick="testNewUser()">🆕 Test User Baru</button>
+        <button class="test-button" onclick="checkCurrentState()">🔍 Cek Status Saat Ini</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>📊 Log Test</h2>
+        <div id="log" class="log"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>📋 Instruksi</h2>
+        <ol>
+            <li>Klik "Bersihkan localStorage" untuk memastikan tidak ada data tersimpan</li>
+            <li>Klik "Test User Baru" untuk mensimulasikan user baru</li>
+            <li>Periksa log untuk melihat apakah posisi diinisialisasi ke 0</li>
+            <li>Jika posisi masih 32, ada masalah yang perlu diperbaiki</li>
+        </ol>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : 'info';
+            logElement.innerHTML += `<span class="${className}">[${timestamp}] ${message}</span>\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        function clearLocalStorage() {
+            localStorage.removeItem('characterData');
+            localStorage.removeItem('gameProgress');
+            localStorage.removeItem('cocTutorialDone');
+            log('✅ localStorage dibersihkan', 'success');
+        }
+
+        function checkCurrentState() {
+            const characterData = localStorage.getItem('characterData');
+            const gameProgress = localStorage.getItem('gameProgress');
+            
+            log('📊 Status localStorage saat ini:', 'info');
+            log(`- characterData: ${characterData ? 'ADA' : 'TIDAK ADA'}`, 'info');
+            log(`- gameProgress: ${gameProgress ? 'ADA' : 'TIDAK ADA'}`, 'info');
+            
+            if (characterData) {
+                try {
+                    const data = JSON.parse(characterData);
+                    log(`- Nama karakter: ${data.nama}`, 'info');
+                } catch (e) {
+                    log('❌ Error parsing characterData', 'error');
+                }
+            }
+            
+            if (gameProgress) {
+                try {
+                    const data = JSON.parse(gameProgress);
+                    log(`- Posisi tersimpan: ${data.position}`, 'info');
+                    log(`- Poin tersimpan: ${data.poin}`, 'info');
+                } catch (e) {
+                    log('❌ Error parsing gameProgress', 'error');
+                }
+            }
+        }
+
+        function testNewUser() {
+            log('🧪 Memulai test user baru...', 'info');
+            
+            // Simulasikan data karakter baru
+            const characterData = {
+                nama: 'TestUser_' + Date.now(),
+                hairColor: '#000000',
+                hatColor: '#000000',
+                shirtColor: '#97A88A',
+                tieColor: '#000000',
+                pantColor: '#808080',
+                skinColor: '#FBE8D3',
+                shoesColor: '#FFFFFF',
+                hairStyle: 'kartun',
+                expression: 'neutral'
+            };
+            
+            // Simpan ke localStorage
+            localStorage.setItem('characterData', JSON.stringify(characterData));
+            log(`✅ Karakter baru disimpan: ${characterData.nama}`, 'success');
+            
+            // Test inisialisasi game
+            testGameInitialization();
+        }
+
+        function testGameInitialization() {
+            log('🎮 Testing inisialisasi game...', 'info');
+            
+            // Simulasikan kelas Player dan Game
+            class TestPlayer {
+                constructor(id, name, color) {
+                    this.id = id;
+                    this.name = name;
+                    this.color = color;
+                    this.position = 0;
+                    this.points = 200;
+                }
+            }
+            
+            class TestGame {
+                constructor() {
+                    this.player = null;
+                }
+                
+                initialize(playerData) {
+                    const characterData = JSON.parse(localStorage.getItem('characterData')) || { nama: 'Pemain' };
+                    const playerName = characterData.nama || 'Pemain';
+                    
+                    this.player = new TestPlayer(0, playerName, '#3498db');
+                    
+                    const savedProgress = localStorage.getItem('gameProgress');
+                    if (savedProgress) {
+                        try {
+                            const progress = JSON.parse(savedProgress);
+                            
+                            if (progress.position !== undefined && progress.position !== null) {
+                                this.player.points = progress.poin || 200;
+                                this.player.position = progress.position || 0;
+                                log(`📈 Progress diterapkan: posisi ${this.player.position}, poin ${this.player.points}`, 'success');
+                            } else {
+                                this.player.points = 200;
+                                this.player.position = 0;
+                                log('🆕 User baru diinisialisasi: posisi 0, poin 200', 'success');
+                            }
+                        } catch (error) {
+                            log('❌ Error saat memuat progress', 'error');
+                            this.player.points = 200;
+                            this.player.position = 0;
+                        }
+                    } else {
+                        this.player.points = 200;
+                        this.player.position = 0;
+                        log('🆕 User baru diinisialisasi: posisi 0, poin 200', 'success');
+                    }
+                }
+                
+                getPlayer() {
+                    return this.player;
+                }
+            }
+            
+            // Test game
+            const game = new TestGame();
+            game.initialize([]);
+            
+            const player = game.getPlayer();
+            if (player) {
+                if (player.position === 0) {
+                    log('✅ TEST BERHASIL: Player dimulai dari posisi 0', 'success');
+                } else {
+                    log(`❌ TEST GAGAL: Player dimulai dari posisi ${player.position}, seharusnya 0`, 'error');
+                }
+                
+                if (player.points === 200) {
+                    log('✅ TEST BERHASIL: Player dimulai dengan 200 poin', 'success');
+                } else {
+                    log(`❌ TEST GAGAL: Player dimulai dengan ${player.points} poin, seharusnya 200`, 'error');
+                }
+            } else {
+                log('❌ TEST GAGAL: Player tidak ditemukan', 'error');
+            }
+        }
+
+        // Auto-check saat halaman dimuat
+        window.addEventListener('load', () => {
+            log('🚀 Test page dimuat', 'info');
+            checkCurrentState();
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bermain Board Game - SociSafe</title>
+    <link rel="icon" type="image/png" href="assets/images/profil/ikonsocisafe.png">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/scrollbar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="board-header-bar">
+        <span class="board-title">Social Safe</span>
+        
+    </div>
+    <div class="game-container">
+        <header class="game-header">
+            <h1>Lumyx</h1>
+            <div id="gameTimer" class="game-timer">00:00:00</div>
+            <div class="game-controls">
+                <button id="settingsBtn" class="btn btn-secondary">Pengaturan</button>
+                <button id="panduanBtn" class="btn btn-secondary">Panduan</button>
+                <button id="restartGame" class="btn btn-icon" title="Menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="game-board-container">
+            <div class="game-board-scroll">
+                <div class="game-board">
+                    <!-- Papan permainan akan dibuat secara dinamis dengan JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Overlay dan container untuk kartu di tengah board -->
+            <div class="card-overlay" id="cardOverlay"></div>
+            <div class="card-display-container" id="cardDisplayContainer">
+                <div class="card-display">
+                    <div class="chance-card" id="displayedCard">
+                        <!-- Bagian depan kartu -->
+                        <div class="chance-card-front" id="cardFront">
+                            <div class="chance-card-title" id="frontCardTitle">KARTU</div>
+                            <div class="chance-card-icon" id="frontCardIcon">?</div>
+                            <div class="chance-card-subtitle">SOCISAFE</div>
+                        </div>
+                        
+                        <!-- Bagian belakang kartu -->
+                        <div class="chance-card-back" id="cardBack">
+                            <div class="chance-card-header" id="cardBackHeader">
+                                <div class="chance-card-icon-small" id="backCardIcon">?</div>
+                                <h2 id="backCardTitle">Judul Kartu</h2>
+                            </div>
+                            <div class="chance-card-content">
+                                <p class="chance-card-description" id="cardDescription">Deskripsi kartu akan muncul di sini.</p>
+                                <div class="chance-card-action" id="cardAction">
+                                    Aksi kartu akan muncul di sini.
+                                </div>
+                            </div>
+                            <div class="chance-card-footer">
+                                <button class="chance-card-button" id="cardButton">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-sidebar">
+                <div class="player-info">
+                    <h2>Skor Pemain</h2>
+                    <div id="playersList" class="players-list">
+                        <!-- Informasi pemain akan ditambahkan secara dinamis -->
+                    </div>
+                </div>
+                
+                <div class="game-actions">
+                    <div class="dice-container">
+                        <div class="dice" id="dice1">?</div>
+                    </div>
+                    <button id="rollDice" class="btn btn-action">Lempar Dadu</button>
+                </div>
+                
+
+                
+                <div class="card-decks-container">
+                    <h3>Kartu Permainan</h3>
+                    <div class="card-decks">
+                        <div class="card-deck" id="actionCardDeck">
+                            <div class="card-stack">
+                                <div class="card-in-stack"></div>
+                                <div class="card-in-stack"></div>
+                                <div class="card-in-stack"></div>
+                                <div class="card-in-stack"></div>
+                                <div class="card-top action-card">
+                                    <div class="card-title">CHANCE</div>
+                                    <div class="card-icon">?</div>
+                                    <div class="card-subtitle">SOCISAFE</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-deck" id="eventCardDeck">
+                            <div class="card-stack">
+                                <div class="card-in-stack"></div>
+                                <div class="card-in-stack"></div>
+                                <div class="card-in-stack"></div>
+                                <div class="card-in-stack"></div>
+                                <div class="card-top event-card">
+                                    <div class="card-title">EVENT</div>
+                                    <div class="card-icon">!</div>
+                                    <div class="card-subtitle">SOCISAFE</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal untuk panduan permainan -->
+    <div id="rulesModal" class="modal">
+        <div class="modal-content rules-modal">
+            <span class="close-modal">&times;</span>
+            <div class="rules-header">
+                <h2>Panduan Permainan</h2>
+                <p class="rules-subtitle">CyberSecurity Monopoly - Edukasi Keamanan Siber</p>
+            </div>
+            <div class="rules-content">
+                <div class="rules-section">
+                    <h3>Tujuan Permainan</h3>
+                    <p>Menjadi pakar keamanan siber dengan mengumpulkan aset keamanan dan menguasai dunia cyber security!</p>
+                </div>
+                
+                <div class="rules-section">
+                    <h3>Modal Awal</h3>
+                    <p>Setiap pemain memulai dengan 200 poin keamanan sebagai modal untuk membangun pertahanan siber.</p>
+                </div>
+                
+                <div class="rules-section">
+                    <h3>Cara Bermain</h3>
+                    <ul class="rules-list">
+                        <li>Lempar dadu untuk bergerak di papan permainan</li>
+                        <li>Jelajahi 40 kotak dengan tema keamanan siber</li>
+                        <li>Beli aset keamanan pada kotak yang belum dimiliki</li>
+                        <li>Bayar biaya keamanan saat berhenti di kotak pajak/denda</li>
+                    </ul>
+                </div>
+                
+                <div class="rules-section">
+                    <h3>Kartu Khusus</h3>
+                    <p>Kartu kesempatan dan event dapat memberikan bonus atau tantangan yang menguji pengetahuan siber Anda.</p>
+                </div>
+                
+                <div class="rules-section">
+                    <h3>Kemenangan</h3>
+                    <p>Pemain dengan aset keamanan siber terbanyak dan pengetahuan cyber security terbaik akan menjadi pemenang!</p>
+                </div>
+            </div>
+            <div class="rules-footer">
+                <p>Selamat bermain dan jadilah ahli keamanan siber terbaik!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk pengaturan -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content settings-modal">
+            <span class="close-modal">&times;</span>
+            <div class="settings-header">
+                <h2>Pengaturan Permainan</h2>
+                <p class="settings-subtitle">Kustomisasi pengalaman bermain Anda</p>
+            </div>
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h3>Pengaturan Audio</h3>
+                    <div class="setting-item">
+                        <label for="soundEnabled">Suara Efek</label>
+                        <input type="checkbox" id="soundEnabled" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="musicEnabled">Musik Latar</label>
+                        <input type="checkbox" id="musicEnabled" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="volumeControl">Volume</label>
+                        <input type="range" id="volumeControl" min="0" max="100" value="70">
+                        <span id="volumeValue">70%</span>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Pengaturan Visual</h3>
+                    <div class="setting-item">
+                        <label for="colorTheme">Tema Warna</label>
+                        <select id="colorTheme">
+                            <option value="default" selected>Default</option>
+                            <option value="dark">Gelap</option>
+                            <option value="light">Terang</option>
+                        </select>
+                    </div>
+                </div>
+                
+
+            </div>
+            <div class="settings-footer">
+                <button id="resetSettings" class="btn btn-secondary">Reset Default</button>
+                <button id="saveSettings" class="btn btn-primary">Simpan Pengaturan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk kartu -->
+    <div id="cardModal" class="modal">
+        <div class="modal-content card-modal">
+            <span class="close-modal">&times;</span>
+            <div class="card-header">
+                <span id="cardIcon" class="card-icon-small"></span>
+                <h2 id="cardTitle">Judul Kartu</h2>
+            </div>
+            <div class="card-content">
+                <p id="cardDescription" class="card-description">Deskripsi kartu akan muncul di sini.</p>
+                <div class="card-action-info">
+                    <strong>Aksi:</strong> <span id="cardAction"></span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button id="cardActionBtn" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="game-footer">
+        <div class="footer-content">
+            <span style="font-size:1.3em; font-family:'Orbitron',sans-serif; font-weight:900; color:#ff6b35; letter-spacing:1.5px;">Education Games</span>
+            <span class="footer-sep" style="margin:0 12px; color:#ccc; font-size:1em;">|</span>
+            <span style="color:#ccc; font-size:1em;">SociSafe Team</span>
+            <span class="footer-sep" style="margin:0 12px; color:#ccc; font-size:1em;">|</span>
+            <span class="footer-tagline" style="font-style:italic; color:#00d4ff; font-size:1em;">“Belajar Aman, Bermain Nyaman”</span>
+        </div>
+    </footer>
+
+    <script src="scripts/board.js"></script>
+    <script src="scripts/game.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/continue-game.js"></script>
+    <script src="scripts/coc-tutorial.js"></script>
+    <script src="scripts/main.js"></script>
+    <script>
+      // Deteksi dan lanjutkan permainan yang sudah ada
+      document.addEventListener('DOMContentLoaded', function() {
+        const data = localStorage.getItem('characterData');
+        if (data) {
+          const nama = JSON.parse(data).nama || 'Pemain';
+          const h1 = document.querySelector('.game-header h1');
+          if (h1) h1.textContent = nama;
+          
+          // Tunggu sampai game dan UI siap, lalu cek progress
+          setTimeout(() => {
+            if (window.game && window.ui && window.continueGameManager) {
+              window.continueGameManager.processContinueGame(nama, window.game, window.ui);
+            } else {
+              // Jika belum siap, coba lagi setelah 2 detik
+              setTimeout(() => {
+                if (window.game && window.ui && window.continueGameManager) {
+                  window.continueGameManager.processContinueGame(nama, window.game, window.ui);
+                }
+              }, 2000);
+            }
+          }, 1500);
+        }
+      });
+    </script>
+    <script>
+    document.addEventListener('click', function(e) {
+        if (e.target.id === 'showCocTutorial') {
+            window.startCoCTutorial();
+        }
+      });
+    </script>
+    <div id="optionsModal" class="modal">
+        <div class="modal-content options-modal">
+            <span class="close-modal" id="closeOptionsModal">&times;</span>
+            <div class="options-header">
+                <h2>Opsi Permainan</h2>
+            </div>
+            <div class="options-content">
+                <button id="saveGameBtn" class="btn btn-primary" style="width:100%;margin-bottom:12px;">Simpan Permainan</button>
+                <button id="restartGameBtn" class="btn btn-secondary" style="width:100%;">Mulai Ulang</button>
+            </div>
+        </div>
+    </div>
+    <script>
+// Popup menu untuk tombol titik tiga
+const optionsModal = document.getElementById('optionsModal');
+const optionsBtn = document.getElementById('restartGame');
+const closeOptionsModal = document.getElementById('closeOptionsModal');
+const saveGameBtn = document.getElementById('saveGameBtn');
+const restartGameBtn = document.getElementById('restartGameBtn');
+
+optionsBtn.addEventListener('click', function() {
+    optionsModal.classList.add('active');
+    document.body.classList.add('modal-open');
+});
+
+closeOptionsModal.addEventListener('click', function() {
+    optionsModal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+});
+
+window.addEventListener('click', function(e) {
+    if (e.target === optionsModal) {
+        optionsModal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    }
+});
+
+// Fungsi Simpan Permainan
+saveGameBtn.addEventListener('click', function() {
+    // Ambil data karakter dari localStorage
+    const characterData = localStorage.getItem('characterData');
+    if (characterData) {
+        const character = JSON.parse(characterData);
+        const playerName = character.nama;
+        
+        // Ambil data game saat ini dari UI dengan berbagai cara
+        let player = null;
+        let currentPoints = 200;
+        let currentPosition = 0;
+        
+        // Coba berbagai cara untuk mendapatkan player object
+        if (window.ui && window.ui.game) {
+            player = window.ui.game.getPlayer();
+        } else if (window.game) {
+            player = window.game.getPlayer();
+        }
+        
+        // Debug: cek apakah game object tersedia
+        console.log('UI object:', window.ui);
+        console.log('Game object:', window.ui?.game);
+        console.log('Global game object:', window.game);
+        console.log('Player object:', player);
+        console.log('Timer element:', document.getElementById('gameTimer'));
+        console.log('Timer text:', document.getElementById('gameTimer')?.textContent);
+        
+        if (player) {
+            currentPoints = parseInt(player.points) || 200;
+            currentPosition = parseInt(player.position) || 0;
+        } else {
+            // Jika tidak bisa mendapatkan player object, coba ambil dari UI langsung
+            console.log('Mencoba mengambil data dari UI langsung...');
+            const pointsElement = document.querySelector('.player-points');
+            if (pointsElement) {
+                const pointsText = pointsElement.textContent;
+                currentPoints = parseInt(pointsText.replace(' pts', '')) || 200;
+                console.log('Poin dari UI element:', currentPoints);
+            }
+            
+            // Coba ambil posisi dari token pemain
+            const playerToken = document.querySelector('.player-token');
+            if (playerToken) {
+                const parentTile = playerToken.closest('.board-tile');
+                if (parentTile) {
+                    currentPosition = parseInt(parentTile.getAttribute('data-id')) || 0;
+                    console.log('Posisi dari UI element:', currentPosition);
+                }
+            }
+        }
+        
+        // Debug: tampilkan poin aktual
+        console.log('Poin saat ini:', currentPoints);
+        console.log('Posisi saat ini:', currentPosition);
+        console.log('Tipe data poin:', typeof currentPoints);
+        
+        // Ambil waktu dari timer game
+        let currentTime = '00:00:00';
+        if (window.ui && typeof window.ui.getElapsedTime === 'function') {
+            currentTime = window.ui.getElapsedTime();
+        } else {
+            // Fallback: ambil dari elemen timer di UI
+            const timerElement = document.getElementById('gameTimer');
+            if (timerElement) {
+                currentTime = timerElement.textContent;
+            }
+        }
+        
+        console.log('Waktu saat ini:', currentTime);
+        
+        const gameData = {
+            nama: playerName,
+            poin: currentPoints,
+            position: currentPosition,
+            waktu: currentTime,
+            hairColor: character.hairColor || null,
+            hatColor: character.hatColor || null,
+            shirtColor: character.shirtColor || null,
+            tieColor: character.tieColor || null,
+            pantColor: character.pantColor || null,
+            skinColor: character.skinColor || null,
+            shoesColor: character.shoesColor || null,
+            hairStyle: character.hairStyle || null,
+            expression: character.expression || null
+        };
+        
+        // Debug: tampilkan data yang akan dikirim
+        console.log('Data yang akan dikirim ke API:', gameData);
+        
+        // Kirim data ke API
+        fetch('api/save_game_progress.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(gameData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Progress berhasil disimpan:', data);
+            } else {
+                console.error('Gagal menyimpan progress:', data.error || 'Unknown error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            // Tutup popup
+            optionsModal.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        });
+    } else {
+        console.error('Data karakter tidak ditemukan!');
+        optionsModal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    }
+});
+
+// Fungsi Mulai Ulang
+restartGameBtn.addEventListener('click', function() {
+    // Reset timer dan mulai game baru
+    if (window.ui) {
+        window.ui.resetTimer();
+        window.ui.startGame();
+    }
+    
+    // Tutup popup
+    optionsModal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+});
+</script>
+</body>
+</html> 

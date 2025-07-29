@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Avatar - SociSafe</title>
+    <link rel="icon" type="image/png" href="assets/images/profil/ikonsocisafe.png">
+    <link rel="stylesheet" href="styles/intro.css">
+    <link rel="stylesheet" href="styles/scrollbar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: radial-gradient(ellipse at 60% 30%, #1a2233 0%, #0a0f18 60%, #0a0f18 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            border-radius: 50%;
+            opacity: 0.18;
+        }
+        body::before {
+            width: 600px;
+            height: 600px;
+            left: -200px;
+            top: -200px;
+            background: radial-gradient(circle, #3cf4ff 0%, transparent 70%);
+        }
+        body::after {
+            width: 400px;
+            height: 400px;
+            right: -120px;
+            bottom: -120px;
+            background: radial-gradient(circle, #ffeb3b 0%, transparent 70%);
+        }
+        .background-particle {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            border-radius: 50%;
+            opacity: 0.12;
+            background: #3cf4ff;
+            animation: float 8s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.1); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        .character-creation-container {
+            max-width: 420px;
+            margin: 80px auto 80px auto;
+            background: rgba(20, 30, 50, 0.95);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px #0008;
+            padding: 36px 32px 32px 32px;
+            text-align: center;
+        }
+        .character-creation-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #3cf4ff;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .character-creation-desc {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin-bottom: 28px;
+        }
+        .input-nama {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1.5px solid #3cf4ff;
+            background: #101828;
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .input-nama:focus {
+            border: 1.5px solid #ffeb3b;
+        }
+        
+        .nama-status {
+            margin-bottom: 20px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .nama-status.continue {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid #ffc107;
+            color: #ffc107;
+        }
+        
+
+        
+        .btn-continue-game {
+            background: linear-gradient(135deg, #ffc107, #ff9800) !important;
+            color: #333 !important;
+            font-weight: bold !important;
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3) !important;
+        }
+        
+        .btn-continue-game:hover {
+            background: linear-gradient(135deg, #ff9800, #ffc107) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 16px rgba(255, 193, 7, 0.4) !important;
+        }
+        
+        .nama-status.available {
+            display: block;
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .nama-status.unavailable {
+            display: block;
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+        
+        .nama-status.checking {
+            display: block;
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+        .avatar-preview {
+            min-height: 0 !important;
+            height: auto !important;
+            margin-top: 70px;
+            margin-bottom: 48px;
+            padding-bottom: 0 !important;
+            display: flex;
+            justify-content: center;
+            border: none;
+        }
+        .avatar-svg {
+            width: 100px;
+            height: 100px;
+            background: #222b;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px #00d4ff33;
+        }
+        .customize-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .customize-row label {
+            min-width: 80px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .customize-row input[type="color"] {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 50%;
+            background: none;
+            cursor: pointer;
+        }
+        .customize-row .option-group {
+            display: flex;
+            gap: 8px;
+        }
+        .option-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1.5px solid #3cf4ff;
+            background: #101828;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: border 0.2s, background 0.2s;
+        }
+        .option-btn.selected {
+            border: 1.5px solid #ffeb3b;
+            background: #222b;
+            color: #ffeb3b;
+        }
+        .btn-lanjut {
+            width: 100%;
+            padding: 14px 0;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(90deg, #3cf4ff 0%, #ffeb3b 100%);
+            color: #222;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .btn-lanjut:hover {
+            background: linear-gradient(90deg, #ffeb3b 0%, #3cf4ff 100%);
+            color: #111;
+        }
+        .character-container {
+            padding: 0;
+            margin: 0;
+            background: none;
+            box-shadow: none;
+            display: flex;
+            justify-content: center;
+            min-height: 0 !important;
+            height: auto !important;
+            border: none;
+        }
+        .character {
+            position: relative;
+            width: 120px;
+            height: 150px;
+            background: #FBE8D3;
+            border-radius: 15px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .hair-realistic {
+            position: absolute;
+            top: -22%;
+            left: 0;
+            width: 100%;
+            height: 44%;
+            pointer-events: none;
+        }
+        .hair-base {
+            position: absolute;
+            left: 7%;
+            top: 0;
+            width: 86%;
+            height: 90%;
+            background: linear-gradient(120deg, #000000 60%, #444 100%);
+            border-top-left-radius: 60% 90%;
+            border-top-right-radius: 90% 100%;
+            border-bottom-left-radius: 60% 60%;
+            border-bottom-right-radius: 80% 70%;
+            z-index: 2;
+        }
+        .hair-forelock {
+            position: absolute;
+            top: 18%;
+            left: 55%;
+            width: 38%;
+            height: 38%;
+            background: linear-gradient(120deg, #000000 60%, #444 100%);
+            border-top-left-radius: 0 0;
+            border-top-right-radius: 80% 60%;
+            border-bottom-left-radius: 60% 100%;
+            border-bottom-right-radius: 80% 100%;
+            transform: rotate(18deg);
+            z-index: 4;
+        }
+        .hair-side-left {
+            position: absolute;
+            left: -2%;
+            top: 22%;
+            width: 18%;
+            height: 60%;
+            background: linear-gradient(120deg, #000000 60%, #444 100%);
+            border-top-left-radius: 60% 80%;
+            border-bottom-left-radius: 60% 80%;
+            border-top-right-radius: 40% 60%;
+            border-bottom-right-radius: 40% 60%;
+            z-index: 3;
+        }
+        .hair-side-right {
+            position: absolute;
+            right: -2%;
+            top: 28%;
+            width: 16%;
+            height: 56%;
+            background: linear-gradient(120deg, #000000 60%, #444 100%);
+            border-top-right-radius: 60% 80%;
+            border-bottom-right-radius: 60% 80%;
+            border-top-left-radius: 40% 60%;
+            border-bottom-left-radius: 40% 60%;
+            z-index: 3;
+        }
+        .hair-topwave {
+            position: absolute;
+            top: 2%;
+            left: 32%;
+            width: 38%;
+            height: 28%;
+            background: linear-gradient(120deg, #000000 60%, #555 100%);
+            border-radius: 50% 60% 40% 60% / 60% 80% 40% 60%;
+            transform: rotate(-8deg);
+            z-index: 5;
+            opacity: 0.7;
+        }
+        .eye {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: black;
+            border-radius: 50%;
+            top: 25%;
+        }
+        .eye.right { right: 15%; }
+        .eye.left { right: 55%; }
+        .mouth {
+            position: absolute;
+            top: 40%;
+            width: 25%;
+            height: 3px;
+            background: black;
+            left: 60%;
+        }
+        .shirt {
+            position: absolute;
+            bottom: -1px;
+            width: 105%;
+            height: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #97A88A;
+            border-radius: 15px;
+            border-top-right-radius: 0px;
+            border-top-left-radius: 0px;
+            overflow: hidden;
+        }
+        .shirt .tie {
+            background: #000000;
+            width: 12%;
+            height: 70%;
+            position: absolute;
+            top: 0;
+            left: 55%;
+            border-bottom-right-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+        .shirt .under {
+            position: absolute;
+            left: 60%;
+            top: 0px;
+            width: 40%;
+            height: 99%;
+            transform: translateX(-50%);
+            background: #FBE8D3;
+        }
+        .arm {
+            position: absolute;
+            width: 25%;
+            height: 40%;
+            background: #FBE8D3;
+            border-radius: 10px;
+            top: 60%;
+            transform-origin: 50% 5%;
+        }
+        .arm.right { right: -10%; transform: rotate(-0.5rad); z-index: 0; }
+        .arm.left { left: -5%; }
+        .arm .sleeve {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 10px;
+            background: #97A88A;
+            width: 100%;
+            height: 50%;
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+        .leg {
+            position: absolute;
+            top: 80%;
+            width: 25%;
+            height: 45%;
+            background: #FBE8D3;
+            border-radius: 10px;
+            z-index: -1;
+            transform-origin: 50% 5%;
+            transform: translateX(-50%);
+            border-bottom: 18px solid #FFFFFF;
+        }
+        .leg.right { right: -5%; }
+        .leg.left { left: 20%; }
+        .leg .pant {
+            position: absolute;
+            width: 100%;
+            height: 80%;
+            top: 0;
+            left: 0;
+            background: #808080;
+        }
+        .character::after {
+            content: '';
+            position: absolute;
+            top: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.2);
+            z-index: -2;
+            width: 100%;
+            height: 15px;
+            border-radius: 50%;
+        }
+        .color-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .color-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .color-row label {
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .color-row input[type="color"] {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 8px;
+            background: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #00d4ff33;
+        }
+        .color-section {
+            margin: 24px 0 18px 0;
+            text-align: center;
+        }
+        .color-title {
+            color: #fff;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px 32px;
+            justify-items: center;
+        }
+        .color-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .color-item input[type="color"] {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 0;
+            background: none;
+            cursor: pointer;
+            box-shadow: none;
+            padding: 0;
+        }
+        .color-label {
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: 'Rajdhani', sans-serif;
+            margin-top: 2px;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 600px) {
+            .color-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        /* Rambut simple (seperti sebelumnya) */
+        .hair-simple {
+            position: absolute;
+            top: -18%;
+            left: 0;
+            width: 100%;
+            height: 32%;
+            pointer-events: none;
+        }
+        .hair-main-simple {
+            position: absolute;
+            left: 10%;
+            top: 0;
+            width: 80%;
+            height: 90%;
+            background: #000000;
+            border-radius: 50% 50% 0 0;
+        }
+        /* Topi (seperti versi awal) */
+        .hair-hat {
+            position: absolute;
+            top: -18%;
+            left: 0;
+            width: 100%;
+            height: 32%;
+            pointer-events: none;
+        }
+        .hat-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--hat-color, #000000);
+            border-top-right-radius: 15px;
+            border-top-left-radius: 15px;
+            z-index: 2;
+        }
+        .hat-shape::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 100%;
+            width: 35%;
+            height: 3px;
+            background: var(--hat-color, #000000);
+            transform: translateY(-100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="character-creation-container">
+        <div class="character-creation-title">Buat Avatar</div>
+        <div class="character-creation-desc">
+            Sebelum memulai petualanganmu, mari ciptakan avatar versimu sendiri. Kamu adalah karakter utama di game ini!
+            </div>
+        <form id="characterForm">
+            <input type="text" id="namaKarakter" class="input-nama" placeholder="Nama avatarmu..." required maxlength="16">
+            <div id="namaStatus" class="nama-status"></div>
+            <div class="avatar-preview">
+            <div class="character-container">
+                <div class="character" id="character">
+                    <div class="hair-realistic">
+                        <div class="hair-base"></div>
+                        <div class="hair-forelock"></div>
+                        <div class="hair-side-left"></div>
+                        <div class="hair-side-right"></div>
+                        <div class="hair-topwave"></div>
+                    </div>
+                    <div class="hair-hat" style="display:none;">
+                        <div class="hat-shape"></div>
+                    </div>
+                    <div class="eye right"></div>
+                    <div class="eye left"></div>
+                    <div class="mouth"></div>
+                    <div class="shirt">
+                        <div class="under"></div>
+                        <div class="tie"></div>
+                    </div>
+                    <div class="arm right">
+                        <div class="sleeve"></div>
+                    </div>
+                    <div class="arm left">
+                        <div class="sleeve"></div>
+                    </div>
+                    <div class="leg right">
+                        <div class="pant"></div>
+                    </div>
+                    <div class="leg left">
+                        <div class="pant"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="color-section">
+                <div class="color-title">Warna</div>
+                <div class="color-grid">
+                    <div class="color-item" id="hairColorItem">
+                        <input type="color" id="hairColor" value="#000000">
+                        <div class="color-label" id="hairColorLabel">Rambut</div>
+                    </div>
+                    <div class="color-item" id="hatColorItem" style="display:none;">
+                        <input type="color" id="hatColor" value="#000000">
+                        <div class="color-label" id="hatColorLabel">Topi</div>
+                    </div>
+                    <div class="color-item">
+                        <input type="color" id="shirtColor" value="#97A88A">
+                        <div class="color-label">Baju</div>
+                    </div>
+                    <div class="color-item">
+                        <input type="color" id="tieColor" value="#000000">
+                        <div class="color-label">Dasi</div>
+                    </div>
+                    <div class="color-item">
+                        <input type="color" id="pantColor" value="#808080">
+                        <div class="color-label">Celana</div>
+                    </div>
+                    <div class="color-item">
+                        <input type="color" id="skinColor" value="#FBE8D3">
+                        <div class="color-label">Kulit</div>
+                    </div>
+                    <div class="color-item">
+                        <input type="color" id="shoesColor" value="#FFFFFF">
+                        <div class="color-label">Sepatu</div>
+                    </div>
+                </div>
+            </div>
+            <div class="customize-row">
+                <label>Style</label>
+                <div class="option-group" id="hairStyleSelect">
+                    <button type="button" class="option-btn selected" data-hair="kartun">Rambut</button>
+                    <button type="button" class="option-btn" data-hair="hat">Topi</button>
+                </div>
+            </div>
+            <div class="customize-row">
+                <label>Ekspresi</label>
+                <div class="option-group" id="mouthGroup">
+                    <button type="button" class="option-btn" data-mouth="smile">Senyum</button>
+                    <button type="button" class="option-btn selected" data-mouth="neutral">Netral</button>
+                    <button type="button" class="option-btn" data-mouth="sad">Sedih</button>
+                </div>
+            </div>
+            <button type="submit" class="btn-lanjut">Mulai Bermain</button>
+        </form>
+    </div>
+    <script>
+        // Pilihan style rambut/topi
+        document.querySelectorAll('#hairStyleSelect .option-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#hairStyleSelect .option-btn').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                const style = this.dataset.hair;
+                document.querySelector('.hair-realistic').style.display = (style === 'kartun') ? '' : 'none';
+                document.querySelector('.hair-hat').style.display = (style === 'hat') ? '' : 'none';
+                // Tampilkan color picker sesuai style
+                if(style === 'hat') {
+                    document.getElementById('hairColorItem').style.display = 'none';
+                    document.getElementById('hatColorItem').style.display = '';
+                } else {
+                    document.getElementById('hairColorItem').style.display = '';
+                    document.getElementById('hatColorItem').style.display = 'none';
+                }
+            });
+        });
+        // Warna rambut detail
+        document.getElementById('hairColor').addEventListener('input', function() {
+            const hairColor = this.value;
+            document.querySelector('.hair-realistic .hair-base').style.background = `linear-gradient(120deg, ${hairColor} 60%, #444 100%)`;
+            document.querySelector('.hair-realistic .hair-forelock').style.background = `linear-gradient(120deg, ${hairColor} 60%, #444 100%)`;
+            document.querySelector('.hair-realistic .hair-side-left').style.background = `linear-gradient(120deg, ${hairColor} 60%, #444 100%)`;
+            document.querySelector('.hair-realistic .hair-side-right').style.background = `linear-gradient(120deg, ${hairColor} 60%, #444 100%)`;
+            document.querySelector('.hair-realistic .hair-topwave').style.background = `linear-gradient(120deg, ${hairColor} 60%, #555 100%)`;
+        });
+        // Warna baju
+        document.getElementById('shirtColor').addEventListener('input', function() {
+            document.querySelector('.shirt').style.background = this.value;
+            document.querySelectorAll('.sleeve').forEach(e => e.style.background = this.value);
+        });
+        // Warna dasi
+        document.getElementById('tieColor').addEventListener('input', function() {
+            document.querySelector('.tie').style.background = this.value;
+        });
+        // Warna celana
+        document.getElementById('pantColor').addEventListener('input', function() {
+            document.querySelectorAll('.pant').forEach(e => e.style.background = this.value);
+        });
+        // Warna kulit
+        document.getElementById('skinColor').addEventListener('input', function() {
+            document.querySelector('.character').style.background = this.value;
+            document.querySelectorAll('.arm, .leg').forEach(e => e.style.background = this.value);
+        });
+        // Warna sepatu
+        document.getElementById('shoesColor').addEventListener('input', function() {
+            document.querySelectorAll('.leg').forEach(e => e.style.borderBottom = `18px solid ${this.value}`);
+        });
+        // Sinkronisasi warna sepatu saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', function() {
+            const shoesColor = document.getElementById('shoesColor').value;
+            document.querySelectorAll('.leg').forEach(e => e.style.borderBottom = `18px solid ${shoesColor}`);
+        });
+        // Ekspresi wajah
+        const mouthShapes = {
+            smile: '25%',
+            neutral: '50%',
+            sad: '75%'
+        };
+        // Set ekspresi default ke netral
+        window.addEventListener('DOMContentLoaded', function() {
+            const mouth = document.querySelector('.mouth');
+            mouth.style.borderRadius = '0';
+            mouth.style.transform = '';
+            mouth.style.background = 'black';
+        });
+        document.querySelectorAll('#mouthGroup .option-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#mouthGroup .option-btn').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                const mouth = document.querySelector('.mouth');
+                if (this.dataset.mouth === 'smile') {
+                    mouth.style.borderRadius = '0 0 15px 15px';
+                    mouth.style.transform = '';
+                    mouth.style.height = '10px';
+                } else if (this.dataset.mouth === 'neutral') {
+                    mouth.style.height = '3px';
+                    mouth.style.borderRadius = '0';
+                    mouth.style.transform = '';
+                    return;
+                } else if (this.dataset.mouth === 'sad') {
+                    mouth.style.borderRadius = '0 0 15px 15px';
+                    mouth.style.transform = 'rotate(180deg)';
+                    mouth.style.height = '10px';
+                }
+            });
+        });
+        // Warna topi
+        document.getElementById('hatColor').addEventListener('input', function() {
+            const hatColor = this.value;
+            document.querySelector('.hat-shape').style.setProperty('--hat-color', hatColor);
+        });
+        // Validasi nama real-time
+        let nameCheckTimeout;
+        const namaInput = document.getElementById('namaKarakter');
+        const namaStatus = document.getElementById('namaStatus');
+        
+        namaInput.addEventListener('input', function() {
+            const nama = this.value.trim();
+            
+            // Clear previous timeout
+            clearTimeout(nameCheckTimeout);
+            
+            // Hide status if empty
+            if (!nama) {
+                namaStatus.className = 'nama-status';
+                namaStatus.style.display = 'none';
+                
+                // Reset tombol ke "Mulai Bermain"
+                const submitBtn = document.querySelector('.btn-lanjut');
+                if (submitBtn) {
+                    submitBtn.textContent = 'Mulai Bermain';
+                    submitBtn.classList.remove('btn-continue-game');
+                }
+                
+                // Hapus data karakter yang tersimpan
+                delete window.existingCharacterData;
+                return;
+            }
+            
+            // Show checking status
+            namaStatus.className = 'nama-status checking';
+            namaStatus.textContent = 'Memeriksa ketersediaan nama...';
+            namaStatus.style.display = 'block';
+            
+            // Debounce the API call
+            nameCheckTimeout = setTimeout(async () => {
+                try {
+                    const response = await fetch(`api/check_game_status.php?nama=${encodeURIComponent(nama)}`);
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        if (result.exists) {
+                            if (result.can_continue) {
+                                namaStatus.className = 'nama-status continue';
+                                namaStatus.textContent = '🔄 ' + result.message;
+                                
+                                // Simpan data karakter untuk dilanjutkan
+                                window.existingCharacterData = result.character;
+                                
+                                // Ubah tombol "Mulai Bermain" menjadi "Lanjutkan Permainan"
+                                const submitBtn = document.querySelector('.btn-lanjut');
+                                if (submitBtn) {
+                                    submitBtn.textContent = 'Lanjutkan Permainan';
+                                    submitBtn.classList.add('btn-continue-game');
+                                }
+                            } else {
+                                namaStatus.className = 'nama-status unavailable';
+                                namaStatus.textContent = '❌ ' + result.message;
+                                
+                                // Kembalikan tombol ke "Mulai Bermain"
+                                const submitBtn = document.querySelector('.btn-lanjut');
+                                if (submitBtn) {
+                                    submitBtn.textContent = 'Mulai Bermain';
+                                    submitBtn.classList.remove('btn-continue-game');
+                                }
+                            }
+                        } else {
+                            namaStatus.className = 'nama-status available';
+                            namaStatus.textContent = '✅ ' + result.message;
+                            
+                            // Kembalikan tombol ke "Mulai Bermain"
+                            const submitBtn = document.querySelector('.btn-lanjut');
+                            if (submitBtn) {
+                                submitBtn.textContent = 'Mulai Bermain';
+                                submitBtn.classList.remove('btn-continue-game');
+                            }
+                        }
+                    } else {
+                        namaStatus.className = 'nama-status unavailable';
+                        namaStatus.textContent = '❌ Error: ' + result.error;
+                        
+                        // Kembalikan tombol ke "Mulai Bermain"
+                        const submitBtn = document.querySelector('.btn-lanjut');
+                        if (submitBtn) {
+                            submitBtn.textContent = 'Mulai Bermain';
+                            submitBtn.classList.remove('btn-continue-game');
+                        }
+                    }
+                } catch (error) {
+                    namaStatus.className = 'nama-status unavailable';
+                    namaStatus.textContent = '❌ Error: Gagal memeriksa nama';
+                    
+                    // Kembalikan tombol ke "Mulai Bermain"
+                    const submitBtn = document.querySelector('.btn-lanjut');
+                    if (submitBtn) {
+                        submitBtn.textContent = 'Mulai Bermain';
+                        submitBtn.classList.remove('btn-continue-game');
+                    }
+                }
+            }, 500); // Wait 500ms after user stops typing
+        });
+        
+        // Fungsi untuk melanjutkan permainan yang sudah ada
+        function continueExistingGame(characterData) {
+            // Langsung lanjutkan permainan tanpa konfirmasi
+            // Simpan data karakter ke localStorage
+            const characterForGame = {
+                nama: characterData.nama,
+                hairColor: characterData.hairColor,
+                hatColor: characterData.hatColor,
+                shirtColor: characterData.shirtColor,
+                tieColor: characterData.tieColor,
+                pantColor: characterData.pantColor,
+                skinColor: characterData.skinColor,
+                shoesColor: characterData.shoesColor,
+                hairStyle: characterData.hairStyle,
+                expression: characterData.expression
+            };
+            
+            localStorage.setItem('characterData', JSON.stringify(characterForGame));
+            
+            // Simpan data progress untuk dilanjutkan
+            localStorage.setItem('gameProgress', JSON.stringify({
+                poin: characterData.poin,
+                position: characterData.position,
+                waktu: characterData.waktu
+            }));
+            
+            // Redirect ke game dengan flag untuk melanjutkan
+            window.location.href = 'game.html?continue=true';
+        }
+        
+        // Form submit logic
+        document.getElementById('characterForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const nama = document.getElementById('namaKarakter').value;
+            
+            // Validasi nama tidak boleh kosong
+            if (!nama.trim()) {
+                return;
+            }
+            
+            // Cek apakah ini adalah melanjutkan permainan
+            const submitBtn = document.querySelector('.btn-lanjut');
+            const isContinueGame = submitBtn && submitBtn.textContent === 'Lanjutkan Permainan';
+            
+            if (isContinueGame && window.existingCharacterData) {
+                // Lanjutkan permainan yang sudah ada
+                continueExistingGame(window.existingCharacterData);
+                return;
+            }
+            
+            // Validasi nama tidak boleh sama dengan yang sudah ada (untuk karakter baru)
+            try {
+                const checkResponse = await fetch(`api/check_name.php?nama=${encodeURIComponent(nama)}`);
+                const checkResult = await checkResponse.json();
+                
+                if (checkResult.success && !checkResult.available) {
+                    return;
+                }
+            } catch (error) {
+                console.error('Error checking name:', error);
+                // Continue with submission even if check fails
+            }
+            
+            // Mengumpulkan data kustomisasi karakter
+            const characterData = {
+                nama: nama,
+                hairColor: document.getElementById('hairColor').value,
+                hatColor: document.getElementById('hatColor').value,
+                shirtColor: document.getElementById('shirtColor').value,
+                tieColor: document.getElementById('tieColor').value,
+                pantColor: document.getElementById('pantColor').value,
+                skinColor: document.getElementById('skinColor').value,
+                shoesColor: document.getElementById('shoesColor').value,
+                hairStyle: document.querySelector('#hairStyleSelect .option-btn.selected').dataset.hair,
+                expression: document.querySelector('#mouthGroup .option-btn.selected').dataset.mouth
+            };
+            
+            try {
+                // Simpan data karakter ke database
+                const response = await fetch('api/save_character.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(characterData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Simpan data karakter ke localStorage juga
+                    localStorage.setItem('characterData', JSON.stringify(characterData));
+                    
+                    // Redirect ke halaman game
+                    window.location.href = 'game.html';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

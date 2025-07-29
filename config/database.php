@@ -1,9 +1,9 @@
 <?php
 // Konfigurasi Database
-$host = 'localhost';
-$dbname = 'socisafe';
-$username = 'root';
-$password = '';
+$host = 'https://sql308.infinityfree.com';
+$dbname = 'if0_39583769_socisafe';
+$username = 'if0_39583769';
+$password = 'Zh4SJN8HHjEPFN';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);

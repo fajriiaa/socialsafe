@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <div class="edukasi-progress-container" style="width:100%;margin-bottom:0;">
+                    <div class="edukasi-progress-bar" style="width:100%;height:5px;background:#e0e0e0;border-radius:3px;overflow:hidden;">
+                        <div class="edukasi-progress-fill" style="width:0%;height:100%;background:#1da1f2;border-radius:3px;transition:width 0.5s;"></div>
+                    </div>
+                </div>
+                <!-- <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div> -->
+                <div class="popup-overlay" id="popupPetunjuk">
+                    <div class="popup-modal">
+                        <div class="popup-text">
+                            Setiap klik bisa berdampak<br>
+                            Saatnya jadi pengguna cerdas dan sadar privasi data pribadi
+                        </div>
+                        <button class="popup-btn" id="btnMulai">Mulai</button>
+                    </div>
+                </div>
+                
+                <!-- Tutorial Overlay -->
+                <div class="tutorial-overlay" id="tutorialOverlay" style="display: none;">
+                    <div class="tutorial-modal">
+                        <div class="tutorial-content">
+                            <div class="tutorial-step" id="step1">
+                                <h3>Tujuan</h3>
+                                <p>Kamu akan melihat berbagai postingan di media sosial. Tugasmu adalah:</p>
+                                <ul>
+                                    <li><strong>Like</strong> <span class="material-icons-outlined" style="color: #4CAF50; font-size: 1.2em; vertical-align: middle;">thumb_up_alt</span> postingan yang mengedukasi tentang privasi data</li>
+                                    <li><strong>Dislike</strong> <span class="material-icons-outlined" style="color: #f44336; font-size: 1.2em; vertical-align: middle;">thumb_down_alt</span> postingan yang membahayakan privasi data</li>
+                                </ul>
+                                <p>Isi bar biru hingga penuh untuk menang!</p>
+                            </div>
+                            <div class="tutorial-step" id="step2" style="display: none;">
+                                <h3>Tombol Like</h3>
+                                <p>Tombol <strong>Like</strong> <span class="material-icons-outlined" style="color: #4CAF50; font-size: 1.2em; vertical-align: middle;">thumb_up_alt</span> digunakan untuk:</p>
+                                <ul>
+                                    <li>Mendukung postingan edukasi privasi data</li>
+                                    <li>Memberikan apresiasi pada konten yang bermanfaat</li>
+                                </ul>
+
+                            </div>
+                            <div class="tutorial-step" id="step3" style="display: none;">
+                                <h3>Tombol Dislike</h3>
+                                <p>Tombol <strong>Dislike</strong> <span class="material-icons-outlined" style="color: #f44336; font-size: 1.2em; vertical-align: middle;">thumb_down_alt</span> digunakan untuk:</p>
+                                <ul>
+                                    <li>Menolak postingan yang membahayakan privasi data</li>
+                                    <li>Mengungkapkan ketidaksetujuan pada konten berbahaya</li>
+                                </ul>
+
+                            </div>
+                            <div class="tutorial-step" id="step4" style="display: none;">
+                                <h3>Bar Progress</h3>
+                                <p>Bar biru di atas menunjukkan kemajuanmu:</p>
+                                <ul>
+                                    <li>Bar akan bertambah setiap kali kamu menjawab dengan benar</li>
+                                    <li>Bar penuh = semua postingan sudah dijawab dengan benar</li>
+                                    <li>Jika salah, bar tidak bertambah</li>
+                                </ul>
+                                <div class="tutorial-highlight" id="progressHighlight"></div>
+                            </div>
+                        </div>
+                        <div class="tutorial-nav">
+                            <button class="tutorial-btn" id="btnTutorialPrev" style="display: none;">Sebelumnya</button>
+                            <button class="tutorial-btn" id="btnTutorialNext">Selanjutnya</button>
+                            <button class="tutorial-btn" id="btnTutorialStart" style="display: none;">Mulai Game</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <!-- Konten akan ditambahkan di sini -->
+                    <div class="social-main">
+                        <div class="social-feed">
+                            <div class="search-header">
+                                <input type="text" class="search-bar" placeholder="Cari...">
+                            </div>
+                            <div class="tab-nav">
+                                <button class="tab active">Populer</button>
+                                <button class="tab">Terbaru</button>
+                                <button class="tab">Orang</button>
+                                <button class="tab">Media</button>
+                                <button class="tab">Daftar</button>
+                            </div>
+                            <div class="post-list">
+                                <div class="post-card" data-type="bahaya">
+                                    <div class="post-header">
+                                        <img src="https://randomuser.me/api/portraits/men/31.jpg" class="post-avatar">
+                                        <div class="post-user">
+                                            <span class="post-name">banggaOrtu <span class="verified">✔</span></span>
+                                            <span class="post-username">@banggaOrtu</span>
+                                        </div>
+                                        <span class="post-menu">•••</span>
+                                    </div>
+                                    <div class="post-text">
+                                        Ini anakku juara kelas, hebat ya! Nih buktinya
+                                    </div>
+                                    <img src="post1.png" class="post-image" alt="Foto raport dan NIK anak">
+                                    <div class="post-actions-custom">
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_up_alt</span>
+                                            <span class="action-label"><b>45 rb</b></span>
+                                        </button>
+                                        <span class="action-divider"></span>
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_down_alt</span>
+                                            <span class="action-label"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="post-card" data-type="edukasi">
+                                    <div class="post-header">
+                                        <img src="https://randomuser.me/api/portraits/men/34.jpg" class="post-avatar">
+                                        <div class="post-user">
+                                            <span class="post-name">EdukasiDigital <span class="verified">✔</span></span>
+                                            <span class="post-username">@EdukasiDigital</span>
+                                        </div>
+                                        <span class="post-menu">•••</span>
+                                    </div>
+                                    <div class="post-text">
+                                        Jangan asal unggah foto dokumen pribadi!<br><br>
+                                        🔐 Data pribadi seperti KTP, KK, paspor dilindungi oleh UU PDP Pasal 3.<br><br>
+                                        Tanpa izin, membagikannya bisa dikenakan sanksi administratif atau pidana.
+                                    </div>
+                                    <div class="post-actions-custom">
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_up_alt</span>
+                                            <span class="action-label">1.200</span>
+                                        </button>
+                                        <span class="action-divider"></span>
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_down_alt</span>
+                                            <span class="action-label"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="post-card" data-type="edukasi">
+                                    <div class="post-header">
+                                        <img src="https://randomuser.me/api/portraits/men/35.jpg" class="post-avatar">
+                                        <div class="post-user">
+                                            <span class="post-name">WargaBijak <span class="verified">✔</span></span>
+                                            <span class="post-username">@WargaBijak</span>
+                                        </div>
+                                        <span class="post-menu">•••</span>
+                                    </div>
+                                    <div class="post-text">
+                                        Hati-hati sebar foto KTP di media sosial!<br><br>
+                                        Data di KTP bisa disalahgunakan untuk pinjaman online ilegal, penipuan, dan kejahatan lain.<br><br>
+                                        Jaga data, jaga masa depanmu.
+                                    </div>
+                                    <img src="ktp.png" class="post-image" alt="Contoh KTP">
+                                    <div class="post-actions-custom">
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_up_alt</span>
+                                            <span class="action-label">2.100</span>
+                                        </button>
+                                        <span class="action-divider"></span>
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_down_alt</span>
+                                            <span class="action-label"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="post-card" data-type="edukasi">
+                                    <div class="post-header">
+                                        <img src="https://randomuser.me/api/portraits/men/36.jpg" class="post-avatar">
+                                        <div class="post-user">
+                                            <span class="post-name">KominfoRI <span class="verified">✔</span></span>
+                                            <span class="post-username">@KominfoRI</span>
+                                        </div>
+                                        <span class="post-menu">•••</span>
+                                    </div>
+                                    <div class="post-text">
+                                        Tips menjaga data pribadi:<br><br>
+                                        1. Jangan unggah dokumen penting ke media sosial<br>
+                                        2. Aktifkan verifikasi dua langkah<br>
+                                        3. Gunakan password yang kuat dan unik<br>
+                                        4. Waspada jika ada yang meminta data pribadi<br><br>
+                                        #LindungiDataPribadi
+                                    </div>
+                                    <div class="post-actions-custom">
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_up_alt</span>
+                                            <span class="action-label">3.800</span>
+                                        </button>
+                                        <span class="action-divider"></span>
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_down_alt</span>
+                                            <span class="action-label"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="post-card" data-type="edukasi">
+                                    <div class="post-header">
+                                        <img src="https://randomuser.me/api/portraits/men/37.jpg" class="post-avatar">
+                                        <div class="post-user">
+                                            <span class="post-name">UU_PDP <span class="verified">✔</span></span>
+                                            <span class="post-username">@UU_PDP</span>
+                                        </div>
+                                        <span class="post-menu">•••</span>
+                                    </div>
+                                    <div class="post-text">
+                                        Ringkasan UU Perlindungan Data Pribadi (UU PDP):<br><br>
+                                        1. Data pribadi adalah setiap data tentang seseorang yang teridentifikasi.<br>
+                                        2. Pemrosesan data harus dengan persetujuan pemilik data.<br>
+                                        3. Pemilik data berhak mengakses, memperbaiki, dan menghapus datanya.<br>
+                                        4. Pelanggaran dapat dikenakan sanksi administratif dan pidana.<br><br>
+                                        Lindungi data pribadimu, pahami hak dan kewajiban sesuai UU PDP!
+                                    </div>
+                                    <div class="post-actions-custom">
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_up_alt</span>
+                                            <span class="action-label">2.500</span>
+                                        </button>
+                                        <span class="action-divider"></span>
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_down_alt</span>
+                                            <span class="action-label"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="post-card" data-type="bahaya">
+                                    <div class="post-header">
+                                        <img src="https://randomuser.me/api/portraits/men/38.jpg" class="post-avatar">
+                                        <div class="post-user">
+                                            <span class="post-name">HRPerusahaanX <span class="verified">✔</span></span>
+                                            <span class="post-username">@HRPerusahaanX</span>
+                                        </div>
+                                        <span class="post-menu">•••</span>
+                                    </div>
+                                    <div class="post-text">
+                                        Selamat untuk karyawan terbaik bulan ini! Ini daftar lengkap 10 besar. 🎉
+                                    </div>
+                                    <img src="karyawanterbaik.png" class="post-image" alt="Daftar Karyawan Terbaik">
+                                    <div class="post-actions-custom">
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_up_alt</span>
+                                            <span class="action-label">5.600</span>
+                                        </button>
+                                        <span class="action-divider"></span>
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_down_alt</span>
+                                            <span class="action-label"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="post-card" data-type="edukasi">
+                                    <div class="post-header">
+                                        <img src="https://randomuser.me/api/portraits/men/39.jpg" class="post-avatar">
+                                        <div class="post-user">
+                                            <span class="post-name">DataSmart <span class="verified">✔</span></span>
+                                            <span class="post-username">@DataSmart</span>
+                                        </div>
+                                        <span class="post-menu">•••</span>
+                                    </div>
+                                    <div class="post-text">
+                                        Tips: Cek aplikasi apa saja yang mengakses lokasi, kamera, dan kontak kamu.<br><br>
+                                        Hapus akses yang tidak perlu ya, demi privasi!<br><br>
+                                        <span style="color:#1da1f2">#DataPribadi #TipsPDP</span>
+                                    </div>
+                                    <div class="post-actions-custom">
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_up_alt</span>
+                                            <span class="action-label">4.200</span>
+                                        </button>
+                                        <span class="action-divider"></span>
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_down_alt</span>
+                                            <span class="action-label"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="post-card" data-type="edukasi">
+                                    <div class="post-header">
+                                        <img src="https://randomuser.me/api/portraits/men/40.jpg" class="post-avatar">
+                                        <div class="post-user">
+                                            <span class="post-name">PDPofficial <span class="verified">✔</span></span>
+                                            <span class="post-username">@PDPofficial</span>
+                                        </div>
+                                        <span class="post-menu">•••</span>
+                                    </div>
+                                    <div class="post-text">
+                                        Kamu punya hak loh:<br><br>
+                                        ✅ Hak untuk mengakses data<br>
+                                        ✅ Hak mengubah data<br>
+                                        ✅ Hak untuk menghapus data<br><br>
+                                        Semua diatur di Pasal 5 UU PDP
+                                    </div>
+                                    <div class="post-actions-custom">
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_up_alt</span>
+                                            <span class="action-label">3.100</span>
+                                        </button>
+                                        <span class="action-divider"></span>
+                                        <button class="action-btn">
+                                            <span class="material-icons-outlined">thumb_down_alt</span>
+                                            <span class="action-label"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social-sidebar">
+                            <div class="filter-box">
+                                <h4>Penyaring pencarian</h4>
+                                <div class="filter-group">
+                                    <b>Orang</b><br>
+                                    <label><input type="checkbox" checked> Dari siapa pun</label><br>
+                                    <label><input type="checkbox"> Orang yang Anda ikuti</label>
+                                </div>
+                                <div class="filter-group">
+                                    <b>Lokasi</b><br>
+                                    <label><input type="checkbox" checked> Di mana pun</label><br>
+                                    <label><input type="checkbox"> Di dekat Anda</label>
+                                </div>
+                                <a href="#" class="filter-link">Pencarian lanjutan</a>
+                            </div>
+                            <div class="trending-box">
+                                <h4>Sedang hangat dibicarakan</h4>
+                                <ul>
+                                    <li><b>Hari Bhayangkara ke-79</b><br><span>Polri Untuk Masyarakat</span></li>
+                                    <li><b>Pagiii</b><br><span>6.939 postingan</span></li>
+                                    <li><b>Apel Pagi</b><br><span>5.438 postingan</span></li>
+                                    <li><b>#BelanjaDiShopeeLebihHemat</b><br><span>1.105 postingan</span></li>
+                                </ul>
+                                <a href="#" class="filter-link">Tampilkan lebih banyak</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Akhir konten sosial -->
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

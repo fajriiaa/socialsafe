@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <div id="intro-screen">
+                    <img src="icon.png" alt="Game Icon" class="intro-icon">
+                    <div class="intro-title">Malword</div>
+                    <div class="intro-desc">Susun kata, gunakan bantuan, dan kenali ancaman malware di media sosial!</div>
+                    <button id="play-btn" class="intro-btn">Play</button>
+                </div>
+                <div class="screen-content" style="display:none;">
+                    <div id="tutorial-overlay" style="display:none;"></div>
+                    <div id="end-popup" style="display:none;"></div>
+                    <div id="score-corner">Skor: 0</div>
+                    <div id="explanation-box"></div>
+                    <div id="game-level">
+                        <div id="level-info">Level: 1</div>
+                        <div id="letter-grid"></div>
+                        <div id="answer-box"></div>
+                        <div id="help-buttons">
+                            <button id="reload-level" data-title="Reset" class="help-btn" aria-label="Acak ulang">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.13-3.36L23 10"/><path d="M1 14l4.35 4.35A9 9 0 0 0 20.49 15"/></svg>
+                            </button>
+                            <button id="hint-explain" data-title="Hint" class="help-btn" aria-label="Penjelasan Kata">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            </button>
+                            <button id="hint-letter" data-title="Clue" class="help-btn" aria-label="Buka Huruf Depan">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </button>
+                        </div>
+                        <div id="message"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        /* Game Shooting Styles */
+        .txt {
+            transform: translate(-15px, -60px);
+            z-index: 999;
+            font-size: 1.4rem;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            pointer-events: none;
+            color: #e64c78;
+            width: 20rem;
+            opacity: 0;
+            transition: 0.2s;
+        }
+
+        .txt.show {
+            opacity: 1;
+            transform: translate(-15px, -80px);
+        }
+
+        .game-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #2a363b;
+            overflow: hidden;
+        }
+
+        /* The Player */
+        .player {
+            position: absolute;
+            top: 200px;
+            left: 200px;
+            transform: translateX(-50%) translateY(-50%);
+            width: 45px;
+            height: 55px;
+            background: white;
+            border-radius: 10px;
+            z-index: 5;
+        }
+        .player .hat {
+            position: absolute;
+            top: 15%;
+            transform: translateY(-100%);
+            width: 100%;
+            height: 34%;
+            background: #d32c1b;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+        }
+        .player .hat::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 100%;
+            width: 35%;
+            height: 2px;
+            background: #d32c1b;
+            transform: translateY(-100%);
+        }
+        .player .eye {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: black;
+            top: 25%;
+        }
+        .player .eye.right {
+            right: 10%;
+        }
+        .player .eye.left {
+            right: 50%;
+        }
+        .player .mouth {
+            position: absolute;
+            top: 40%;
+            width: 20%;
+            height: 2px;
+            background: black;
+            left: 65%;
+        }
+        .player .shirt {
+            position: absolute;
+            bottom: -1px;
+            width: 105%;
+            height: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #cf2213;
+            border-radius: 10px;
+            border-top-right-radius: 0px;
+            border-top-left-radius: 0px;
+            overflow: hidden;
+        }
+        .player .shirt .tie {
+            background: #e31b15;
+            width: 10%;
+            height: 70%;
+            position: absolute;
+            top: 0;
+            left: 55%;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 55px;
+        }
+        .player .shirt .under {
+            position: absolute;
+            left: 60%;
+            top: 0px;
+            width: 40%;
+            height: 99%;
+            transform: translateX(-50%);
+            background: #fff5f4;
+        }
+        .player .arm {
+            position: absolute;
+            width: 25%;
+            height: 40%;
+            background: white;
+            border-radius: 10px;
+            top: 60%;
+            transform-origin: 50% 5%;
+        }
+        .player .arm.right {
+            right: -10%;
+            transform: rotate(-1.5rad);
+            z-index: 0;
+        }
+        .player .arm.right .gun {
+            position: absolute;
+            top: 80%;
+            left: 100%;
+            width: 100%;
+            height: 150%;
+            background: black;
+            transform-origin: -100% 0%;
+        }
+        .player .arm.right .gun::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 250%;
+            height: 40%;
+            background: black;
+        }
+        .player .arm.right .gun .barrel {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 1px;
+            height: 1px;
+            transform: translateX(-50%) translateY(-50%);
+        }
+        .player .arm.left {
+            left: -5%;
+        }
+        .player .arm .sleeve {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 10px;
+            background: #e31b15;
+            width: 100%;
+            height: 50%;
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+        .player .leg {
+            position: absolute;
+            top: 80%;
+            width: 25%;
+            height: 45%;
+            background: white;
+            border-radius: 10px;
+            z-index: -1;
+            transform-origin: 50% 5%;
+            transform: translateX(-50%);
+        }
+        .player .leg.right {
+            right: -5%;
+        }
+        .player .leg.left {
+            left: 20%;
+        }
+        .player .leg .pant {
+            position: absolute;
+            width: 100%;
+            height: 80%;
+            top: 0;
+            left: 0;
+            background: #4093bd;
+        }
+        .player::after {
+            content: '';
+            position: absolute;
+            top: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: RGBA(0, 0, 0, 0.2);
+            z-index: -2;
+            width: 100%;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* Bullets */
+        .bullet {
+            position: absolute;
+            width: 12px;
+            height: 7px;
+            background: yellow;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: 10;
+        }
+
+        /* Bullet Flash */
+        .flash {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: white;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        /* Smoke Clouds */
+        .cloud {
+            position: absolute;
+            background: Silver;
+            border-radius: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        /* Enemies */
+        .enemy {
+            position: absolute;
+            transform: translateX(-50%) translateY(-50%);
+        }
+        .enemy.jimmy {
+            width: 35px;
+            height: 35px;
+            background: #fecea8;
+            border-radius: 10px;
+        }
+        .enemy.jimmy .eye {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: black;
+            position: absolute;
+            top: 20%;
+        }
+        .enemy.jimmy .eye.right {
+            right: 10%;
+        }
+        .enemy.jimmy .eye.left {
+            right: 50%;
+        }
+        .enemy.jimmy .mouth {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 35%;
+            height: 10px;
+            background: black;
+        }
+        .enemy.jimmy .arm {
+            position: absolute;
+            width: 20%;
+            height: 60%;
+            border-radius: 10px;
+            background: #fecea8;
+            transform-origin: 50% 5%;
+            top: 5px;
+            transform: rotate(125deg);
+            z-index: -1;
+        }
+        .enemy.jimmy .arm.right {
+            right: 0;
+        }
+        .enemy.jimmy .arm.left {
+            left: 0;
+        }
+
+        /* Malware Virus Styles */
+        .malware {
+            position: absolute;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: 15;
+        }
+
+        .malware.virus {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(45deg, #ff4757, #ff3838);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.8), inset 0 0 10px rgba(0,0,0,0.3);
+            animation: virusPulse 1.2s infinite alternate;
+            position: relative;
+            border: 2px solid #ff3838;
+        }
+
+        /* Antivirus Styles */
+        .malware.antivirus {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(45deg, #00c3ff, #00e6b8);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 195, 255, 0.7), 0 0 10px #00e6b8 inset;
+            border: 2px solid #00e6b8;
+            position: relative;
+            animation: antivirusPulse 1.2s infinite alternate;
+        }
+        .malware.antivirus .core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 8px #00e6b8;
+        }
+        @keyframes antivirusPulse {
+            0% { transform: translateX(-50%) translateY(-50%) scale(1); }
+            100% { transform: translateX(-50%) translateY(-50%) scale(1.2); }
+        }
+
+        /* Malware Animations */
+        @keyframes virusPulse {
+            0% { transform: translateX(-50%) translateY(-50%) scale(1); }
+            100% { transform: translateX(-50%) translateY(-50%) scale(1.3); }
+        }
+
+        /* Override device screen untuk game */
+        .device-screen {
+            background: #2a363b !important;
+            padding: 0 !important;
+        }
+
+        .screen-content {
+            position: relative;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Container game */
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* HP/Smartphone Styles */
+        .player .arm.left .phone {
+            position: absolute;
+            top: 15%;
+            left: 100%;
+            width: 16px;
+            height: 24px;
+            background: #2f3542;
+            border-radius: 3px;
+            transform-origin: 0% 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .player .arm.left .phone::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 10px;
+            height: 14px;
+            background: #74b9ff;
+            border-radius: 2px;
+        }
+
+        .player .arm.left .phone::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            width: 6px;
+            height: 3px;
+            background: #fff;
+            border-radius: 1px;
+            transform: translateX(-50%);
+        }
+
+        .player .arm.left .phone .screen {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 8px;
+            height: 12px;
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .player .arm.left .phone .screen::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 4px;
+            height: 3px;
+            background: #fff;
+            border-radius: 1px;
+        }
+
+        .player .arm.left .phone .screen::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            width: 3px;
+            height: 2px;
+            background: #fff;
+            border-radius: 1px;
+        }
+
+        /* Efek Perisai (Shield) Player - versi lebih keren */
+        .player .shield {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 65px;
+            height: 65px;
+            background: radial-gradient(circle at 60% 40%, rgba(0,200,255,0.25) 60%, rgba(120,0,255,0.10) 100%);
+            border: 3px solid rgba(0,200,255,0.7);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow:
+                0 0 24px 8px rgba(0,200,255,0.18),
+                0 0 60px 0px rgba(120,0,255,0.10) inset,
+                0 0 0 4px rgba(0,200,255,0.08) inset;
+            pointer-events: none;
+            z-index: 1;
+            animation: shieldPulse 1.2s infinite alternate;
+            overflow: visible;
+            opacity: 1;
+            transition: opacity 0.4s, filter 0.4s;
+        }
+        .player .shield::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2px dashed rgba(0,200,255,0.25);
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: shieldWave 2.5s linear infinite;
+            pointer-events: none;
+        }
+        .player .shield::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(120,0,255,0.18);
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: shieldWave2 3.5s linear infinite reverse;
+            pointer-events: none;
+        }
+        @keyframes shieldPulse {
+            0% { box-shadow: 0 0 44px 18px rgba(0,200,255,0.25), 0 0 120px 0px rgba(120,0,255,0.18) inset, 0 0 0 8px rgba(0,200,255,0.10) inset; }
+            100% { box-shadow: 0 0 64px 32px rgba(0,200,255,0.35), 0 0 180px 0px rgba(120,0,255,0.22) inset, 0 0 0 16px rgba(0,200,255,0.13) inset; }
+        }
+        @keyframes shieldWave {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        @keyframes shieldWave2 {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(-360deg); }
+        }
+
+        .player-health-bar {
+            position: absolute;
+            left: 50%;
+            top: -24px;
+            width: 40px;
+            height: 6px;
+            background: #222b3a;
+            border-radius: 4px;
+            transform: translateX(-50%);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+            z-index: 20;
+            overflow: hidden;
+        }
+        .player-health-fill {
+            height: 100%;
+            background: #e74c3c;
+            border-radius: 4px;
+            transition: width 0.3s cubic-bezier(.4,2,.6,1);
+        }
+
+        /* Game Over dan Success Overlay - sekarang di dalam device screen dengan tampilan yang lebih keren, modern dan menarik */
+        .game-over-overlay {
+            position: absolute;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(20,30,40,0.7);
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            overflow: hidden;
+        }
+        .game-over-text {
+            color: #fff;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 4px 20px #000, 0 0 30px #ff4757;
+            letter-spacing: 2px;
+            padding: 24px 36px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255,71,87,0.1), rgba(255,71,87,0.05));
+            border: 2px solid rgba(255,71,87,0.3);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(255,71,87,0.2);
+        }
+
+        .edukasi-modal {
+            position: absolute;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(30,40,50,0.55);
+            z-index: 4000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            overflow: hidden;
+        }
+        .edukasi-box {
+            background: #232e3a;
+            border-radius: 18px;
+            box-shadow: 0 4px 32px #00c3ff55, 0 0 0 4px #00c3ff22;
+            padding: 18px 14px 12px 14px;
+            min-width: 170px;
+            max-width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            animation: edukasiPop 0.3s cubic-bezier(.5,1.7,.5,1) both;
+        }
+        @keyframes edukasiPop {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes resultPop {
+            0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        
+        .game-over-box, .success-box {
+            animation: resultPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        .edukasi-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #00c3ff;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 12px #00c3ff55;
+        }
+        .edukasi-content {
+            font-size: 0.95rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+        .edukasi-close {
+            position: relative;
+            align-self: flex-end;
+            margin-top: 0;
+            margin-bottom: -8px;
+            background: #00c3ff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #00c3ff33;
+            transition: background 0.18s;
+        }
+        .edukasi-close:hover {
+            background: #0099cc;
+        }
+        @media (max-width: 400px) {
+            .edukasi-box { min-width: 120px; max-width: 90vw; padding: 10px 4px 8px 4px; }
+            .edukasi-title { font-size: 0.95rem; }
+            .edukasi-content { font-size: 0.85rem; }
+        }
+
+        .timer-box {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            right: auto;
+            z-index: 1000;
+            background: #222b3a;
+            color: #fff;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            padding: 4px 18px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+            letter-spacing: 1px;
+        }
+        .timer-text {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .success-overlay {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30,40,50,0.92);
+            z-index: 5000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            overflow: hidden;
+        }
+        /* Success overlay juga di dalam device screen */
+        /* Success text dengan ukuran yang lebih kecil dan simpel */
+        .success-text {
+            color: #00e676;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 4px 20px #000, 0 0 30px #00e676;
+            letter-spacing: 2px;
+            padding: 24px 36px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(0,230,118,0.1), rgba(0,230,118,0.05));
+            border: 2px solid rgba(0,230,118,0.3);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,230,118,0.2);
+        }
+        /* Continue button dengan style yang lebih kecil dan disabled */
+        .continue-btn {
+            margin-top: 16px;
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #666, #555);
+            color: #999;
+            cursor: default;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .try-again-btn {
+            transition: all 0.3s ease;
+        }
+        
+                 .try-again-btn:hover {
+             transform: translateY(-2px);
+             box-shadow: 0 6px 20px rgba(255,71,87,0.4);
+         }
+         
+         .continue-btn:hover {
+             transform: translateY(-2px);
+             box-shadow: 0 6px 20px rgba(0,230,118,0.4);
+         }
+         
+         .continue-btn:active {
+             transform: translateY(0);
+             box-shadow: 0 2px 8px rgba(0,230,118,0.3);
+         }
+        .start-screen {
+            position: absolute;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: #232e3a;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            box-shadow: none;
+            padding: 32px 0 24px 0;
+        }
+        .intro-overlay {
+            position: fixed;
+            left: 3%;
+            top: 6%;
+            width: 94%;
+            height: 88%;
+            background: rgba(30,40,50,0.93);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            border-radius: 22px;
+            padding: 36px 0;
+        }
+        .intro-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 370px;
+            margin: auto;
+            gap: 36px;
+            height: auto;
+            background: transparent;
+            border-radius: 18px;
+            box-sizing: border-box;
+            padding: 0 18px;
+        }
+        .intro-side {
+            flex: 1;
+            color: #fff;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 1.08rem;
+            text-align: right;
+            padding: 0 18px 0 0;
+        }
+        .intro-center {
+            flex: 0 0 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 160px;
+        }
+        .intro-side-right {
+            flex: 1;
+            color: #fff;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 1.08rem;
+            text-align: left;
+            padding: 0 0 0 18px;
+        }
+        .intro-next-btn {
+            padding: 10px 38px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(90deg, #00c3ff, #3be6c6);
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #00c3ff55;
+            cursor: pointer;
+        }
+        @media (max-width: 700px) {
+            .intro-content { flex-direction: column !important; gap: 18px !important; max-width: 98vw !important; }
+            .intro-side, .intro-side-right, .intro-side-left { text-align: center !important; padding: 0 4px !important; }
+            .intro-center { min-width: 60px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <!-- Game Over dan Success Overlay - sekarang di dalam device screen -->
+                <div class="game-over-overlay" style="display:none; flex-direction:column; align-items:center; justify-content:center;">
+                    <div class="game-over-box" style="background:rgba(20,25,35,0.98); border-radius:20px; box-shadow:0 8px 40px rgba(255,71,87,0.3), 0 0 0 1px rgba(255,71,87,0.1); padding:36px 44px 28px 44px; display:flex; flex-direction:column; align-items:center; min-width:320px;">
+                        <div class="game-over-text" style="font-family:'Poppins',Arial,sans-serif; font-size:2.2rem; font-weight:700; color:#fff; text-shadow:0 4px 20px #000,0 0 30px #ff4757; letter-spacing:2px; margin-bottom:16px;">GAME OVER</div>
+                        <div style="font-family:'Poppins',Arial,sans-serif; font-size:1rem; color:#e0e0e0; text-align:center; margin-bottom:20px; line-height:1.5; max-width:280px;">Jangan menyerah! Coba lagi dan lindungi akunmu dengan lebih baik!</div>
+                        <button class="try-again-btn" style="margin-top:0; display:flex; align-items:center; gap:8px; padding:12px 20px; font-size:16px; border:none; border-radius:8px; background:linear-gradient(135deg,#ff4757,#ff3838); color:#fff; cursor:pointer; box-shadow:0 4px 16px rgba(255,71,87,0.3); font-weight:600;"> <span style="font-size:18px;">&#8635;</span> Main Lagi </button>
+                    </div>
+                </div>
+                <div class="success-overlay" style="display:none;">
+                    <div class="success-box" style="background:rgba(20,25,35,0.98); border-radius:20px; box-shadow:0 8px 40px rgba(0,230,118,0.3), 0 0 0 1px rgba(0,230,118,0.1); padding:36px 44px 28px 44px; display:flex; flex-direction:column; align-items:center; min-width:320px;">
+                        <div class="game-over-text" style="font-family:'Poppins',Arial,sans-serif; font-size:2.2rem; font-weight:700; color:#00e676; text-shadow:0 4px 20px #000,0 0 30px #00e676; letter-spacing:2px; margin-bottom:16px;">SUCCESSFUL</div>
+                                                 <div style="font-family:'Poppins',Arial,sans-serif; font-size:1rem; color:#e0e0e0; text-align:center; margin-bottom:20px; line-height:1.5; max-width:280px;">Selamat! Kamu berhasil melindungi akunmu dari serangan malware! Klik 'Selesai' untuk kembali ke menu utama.</div>
+                                                 <!-- Continue button - aktif untuk menutup game -->
+                         <button class="continue-btn" style="margin-top:0; padding:12px 24px; font-size:16px; border:none; border-radius:8px; background:linear-gradient(135deg,#00e676,#00c853); color:#fff; cursor:pointer; box-shadow:0 4px 16px rgba(0,230,118,0.3); font-weight:600; transition:all 0.3s ease;">Selesai</button>
+                    </div>
+                </div>
+                <div class="edukasi-modal" style="display:none;">
+                    <div class="edukasi-box">
+                        <div class="edukasi-title">Edukasi Malware</div>
+                        <div class="edukasi-content"></div>
+                        <button class="edukasi-close">Tutup</button>
+                    </div>
+                </div>
+                <div class="screen-content" style="position:relative; width:100%; height:100%;">
+                    <div class="start-screen" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:340px; min-width:0; height:auto; background:#232e3a; z-index:2000; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:20px; box-shadow:0 2px 24px #00c3ff22; padding:24px 0 18px 0;">
+                        <img src="threatshooter.png" alt="Threat Shooter Logo" style="width:78px; height:78px; margin-bottom:14px; box-shadow:0 2px 12px #00c3ff33; border-radius:16px; border:4px solid #00c3ff; background:#232e3a;">
+                        <div style="font-family:'Orbitron','Poppins',Arial,sans-serif; font-size:1.45rem; font-weight:700; color:#00c3ff; margin-bottom:8px; letter-spacing:1px; text-shadow:0 2px 8px #00c3ff55;">Threat Shooter</div>
+                        <div style="font-family:'Poppins',Arial,sans-serif; font-size:0.98rem; color:#fff; text-align:center; margin-bottom:22px; max-width:260px; text-shadow:0 2px 8px #00c3ff22;">Lindungi akunmu dari serangan malware! Tembak virus yang turun, hindari bahaya, dan pelajari tips menjaga privasi di dunia digital.</div>
+                        <button class="start-btn" style="padding:9px 28px; font-size:1rem; font-weight:700; color:#fff; background:linear-gradient(90deg,#00c3ff,#3be6c6); border:none; border-radius:10px; box-shadow:0 2px 8px #00c3ff55; cursor:pointer;">Mulai</button>
+                    </div>
+                    <div class="timer-box"><span class="timer-text">01:00</span></div>
+                    <div class="container"></div>
+                    <div class="intro-overlay" style="display:none; position:absolute; left:3%; top:6%; width:94%; height:88%; background:rgba(30,40,50,0.93); z-index:3000; align-items:center; justify-content:center; box-sizing:border-box; border-radius:22px; padding:36px 0;">
+                      <div class="intro-content" style="display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; max-width:370px; margin:auto; gap:36px; height:auto; background:transparent; border-radius:18px; box-sizing:border-box; padding:0 18px;">
+                        <div class="intro-visual" style="flex:1; display:flex; align-items:center; justify-content:center; min-width:0;">
+                          <div class="intro-center" style="display:flex; align-items:center; justify-content:center; min-height:60px; min-width:50px;"></div>
+                        </div>
+                        <div class="intro-info" style="flex:1.2; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:0 10px 0 16px;">
+                          <div class="intro-desc" style="color:#fff; font-family:'Poppins',Arial,sans-serif; font-size:0.91rem; text-align:left; line-height:1.45; margin-bottom:14px; word-break:break-word; max-width:210px;"></div>
+                          <button class="intro-next-btn" style="align-self:flex-start; padding:7px 18px; font-size:0.95rem; font-weight:700; color:#fff; background:linear-gradient(90deg,#00c3ff,#3be6c6); border:none; border-radius:8px; box-shadow:0 2px 8px #00c3ff55; cursor:pointer;">OK</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Game Shooting JavaScript
+        document.body.addEventListener('click', () => {
+            const text = document.querySelector('.txt');
+            if (text) {
+                text.classList.add('show');
+                setTimeout(() => {
+                    text.classList.remove('show');
+                }, 500);
+            }
+        });
+
+        var SHOOT_KNOCKBACK = 5;
+        var SHOOT_KNOCKBACKRESET = 0.25;
+
+        var mouse = {
+            x: 0,
+            y: 0,
+        };
+
+        // Variabel global health
+        var playerHealth = 100;
+        var playerInvuln = false;
+        let gameOver = false;
+        let pauseGame = true;
+        function updateHealthBar() {
+            const fill = document.querySelector('.player-health-fill');
+            if (fill) fill.style.width = playerHealth + '%';
+            // Shield efek
+            const l1 = document.querySelector('.shield-layer1');
+            const l2 = document.querySelector('.shield-layer2');
+            let percent = playerHealth / 100;
+            if (percent < 0) percent = 0;
+            if (percent > 1) percent = 1;
+            let op1 = percent > 0 ? 0.2 + percent * 0.8 : 0;
+            let op2 = percent > 0 ? 0.15 + percent * 0.55 : 0;
+            if (l1) {
+              l1.style.opacity = op1;
+              l1.style.transform = `translate(-50%, -50%) scale(${1 + percent * 0.15})`;
+            }
+            if (l2) {
+              l2.style.opacity = op2;
+              l2.style.transform = `translate(-50%, -50%) scale(${1 + percent * 0.13})`;
+            }
+            // Efek player mati
+            const player = document.querySelector('.player');
+            if (player) {
+              if (playerHealth <= 0) {
+                player.classList.add('dead');
+                document.querySelector('.game-over-overlay').style.display = 'flex';
+                gameOver = true;
+              } else {
+                player.classList.remove('dead');
+                document.querySelector('.game-over-overlay').style.display = 'none';
+                gameOver = false;
+              }
+            }
+        }
+
+        // The Player class
+        class Player {
+            constructor(options) {
+                // Store references
+                this.controls = options.controls;
+                this.createBullet = options.createBullet;
+                this.createSmoke = options.createSmoke;
+
+                // Creating the player element
+                this.createElement(options.parentContainer);
+
+                // Position/movement - fix di tengah bawah device screen
+                this.x = options.parentContainer.width() / 2;
+                this.y = options.parentContainer.height() * 0.9;
+                this.xvel = 0;
+                this.yvel = 0;
+                this.friction = 0.8;
+                this.speed = 0.8;
+                this.scaleX = 1;
+                this.width = 40;
+                this.height = 40;
+
+                // Anim
+                this.anim = {
+                    counter: 0,
+                    inc: Math.PI / 10,
+                    rightArm: {
+                        rot: 0,
+                        offsetX: 0,
+                        offsetY: 0,
+                    },
+                    leftArm: {
+                        rot: 0,
+                    },
+                    leftLeg: {
+                        rot: 0,
+                    },
+                    rightLeg: {
+                        rot: 0,
+                    },
+                    gun: {
+                        rot: 0,
+                    },
+                    lift: 0,
+                    knockback: 0,
+                };
+
+                // Shooting
+                this.shoot();
+
+                // Updating
+                options.startUpdating(this.aim.bind(this));
+                options.startUpdating(this.turn.bind(this));
+                options.startUpdating(this.move.bind(this));
+                options.startUpdating(this.animate.bind(this));
+                options.startUpdating(this.boundaries.bind(this));
+                options.startUpdating(this.updateStyles.bind(this));
+            }
+
+            // Creating / injecting the element
+            createElement(parentContainer) {
+                // The Markup
+                this.el = $(`
+          <div class="player">
+            <div class="player-health-bar"><div class="player-health-fill" style="width:100%"></div></div>
+            <div class="shield"></div>
+            <p class="txt">Good!</p>
+            <div class='hat'></div>
+            <div class='eye right'></div>
+            <div class='eye left'></div>
+            <div class='mouth'></div>
+            <div class='shirt'>
+              <div class='under'></div>
+            </div>
+            <div class='arm right'>
+              <div class='sleeve'></div>
+              <div class='gun'>
+                <div class='grey'></div>
+                <div class='barrel'></div>
+              </div>
+            </div>
+            <div class='arm left'>
+              <div class='sleeve'></div>
+              <div class='phone'>
+                <div class='screen'></div>
+              </div>
+            </div>
+            <div class='leg right'>
+              <div class='pant'></div>
+            </div>
+            <div class='leg left'>
+              <div class='pant'></div>
+            </div>
+          </div>
+        `);
+
+                // Injection
+                parentContainer.append(this.el);
+
+                // Update dimensions
+                this.width = this.el.outerWidth();
+                this.height = this.el.outerHeight();
+            }
+
+            // Animate the player
+            animate() {
+                var isMoving =
+                    this.controls.isDown('right') ||
+                    this.controls.isDown('left') ||
+                    this.controls.isDown('up') ||
+                    this.controls.isDown('down')
+                        ? true
+                        : false;
+
+                // Running animation
+                if (isMoving) {
+                    // Arms
+                    this.anim.leftArm.rot = Math.sin(this.anim.counter) / 2;
+
+                    // Legs
+                    this.anim.rightLeg.rot = Math.sin(this.anim.counter * 0.9) * 0.5;
+                    this.anim.leftLeg.rot = Math.sin(-this.anim.counter * 0.9) * 0.5;
+
+                    // Lift
+                    this.anim.lift = Math.sin(this.anim.counter) * 5;
+
+                    // Inc
+                    this.anim.counter += this.anim.inc;
+                } else {
+                    // Resetting to idle state
+                    var leftArm = this.anim.leftArm.rot;
+                    var rightLeg = this.anim.rightLeg.rot;
+                    var leftLeg = this.anim.leftLeg.rot;
+                    var lift = this.anim.lift;
+                    var resetSpeed = 0.1;
+
+                    // Arms
+                    this.anim.leftArm.rot = leftArm - (leftArm - 0) * resetSpeed;
+
+                    // Legs
+                    this.anim.rightLeg.rot = rightLeg - (rightLeg - 0) * resetSpeed;
+                    this.anim.leftLeg.rot = leftLeg - (leftLeg - 0) * resetSpeed;
+
+                    // Lift
+                    this.anim.lift = lift - (lift - 0) * resetSpeed;
+                }
+
+                // Shooting
+                var rightArmRot = this.anim.rightArm.rot;
+                this.anim.rightArm.offsetX =
+                    Math.cos(rightArmRot - Math.PI / 2) * this.anim.knockback;
+                this.anim.rightArm.offsetY =
+                    Math.sin(rightArmRot - Math.PI / 2) * this.anim.knockback;
+                this.anim.gun.rot = -this.anim.knockback * 0.1;
+
+                // Resetting the knockback
+                this.anim.knockback =
+                    this.anim.knockback -
+                    (this.anim.knockback - 0) * SHOOT_KNOCKBACKRESET;
+            }
+
+            // Aiming at the mouse
+            aim() {
+                var angle = Math.atan2(mouse.y - this.y, mouse.x - this.x);
+                this.anim.rightArm.rot = (angle - Math.PI / 2) * this.scaleX;
+            }
+
+            // Facing the mouse
+            turn() {
+                if (mouse.x < this.x) {
+                    this.scaleX = -1;
+                } else {
+                    this.scaleX = 1;
+                }
+            }
+
+            // Movement
+            move() {
+                // Physics
+                this.x += this.xvel;
+                this.y += this.yvel;
+                this.xvel *= this.friction;
+                this.yvel *= this.friction;
+
+                // Keys
+                if (this.controls.isDown('right')) {
+                    this.xvel += this.speed;
+                } else if (this.controls.isDown('left')) {
+                    this.xvel -= this.speed;
+                }
+                if (this.controls.isDown('up')) {
+                    this.yvel -= this.speed;
+                } else if (this.controls.isDown('down')) {
+                    this.yvel += this.speed;
+                }
+            }
+
+            // Staying on screen
+            boundaries() {
+                var containerWidth = $('.container').width();
+                var containerHeight = $('.container').height();
+                
+                if (this.x - this.width / 2 < 0) {
+                    this.x = this.width / 2 + 1;
+                    this.xvel = 0;
+                } else if (this.x + this.width / 2 > containerWidth) {
+                    this.x = containerWidth - this.width / 2 - 1;
+                    this.xvel = 0;
+                }
+                if (this.y - this.height / 2 < 0) {
+                    this.y = this.height / 2 + 1;
+                    this.yvel = 0;
+                } else if (this.y + this.height / 2 > containerHeight) {
+                    this.y = containerHeight - this.height / 2 - 1;
+                    this.yvel = 0;
+                }
+            }
+
+            // Listen for mousepresses and shoot
+            shoot() {
+                $('.container').on(
+                    'mousedown',
+                    function () {
+                        // Check if createBullet is available
+                        if (!this.createBullet) return;
+                        
+                        // Change text randomly
+                        const texts = ['Good!', 'Nice!'];
+                        const randomText = texts[Math.floor(Math.random() * texts.length)];
+                        $('.player .txt').text(randomText);
+                        
+                        // Panjang laras (dari pusat player ke ujung barrel)
+                        const barrelLength = 40; // px, sesuaikan dengan desain
+                        // Sudut tembakan (sama dengan sudut lengan kanan)
+                        const angle = this.anim.rightArm.rot + Math.PI / 2;
+                        // Posisi pusat player
+                        const playerX = this.x;
+                        const playerY = this.y;
+                        // Hitung posisi ujung barrel (perhatikan scaleX untuk arah kiri)
+                        const x = playerX + Math.cos(angle) * barrelLength * this.scaleX;
+                        const y = playerY + Math.sin(angle) * barrelLength;
+                        // Sudut tembakan yang benar
+                        const shootAngle = this.scaleX === 1 ? angle : Math.PI - angle;
+                        this.createBullet(x, y, shootAngle);
+                        // Hilangkan knockback, player tetap stay
+                        // this.anim.knockback = SHOOT_KNOCKBACK;
+                        // this.xvel -= Math.cos(shootAngle) * 2.5;
+                        // this.yvel -= Math.sin(shootAngle) * 2.5;
+                        // Smoke
+                        this.createSmoke(x, y, shootAngle, 1);
+                    }.bind(this)
+                );
+            }
+
+            // Updating the styles
+            updateStyles() {
+                var rightArm = $('.player .arm.right');
+                var leftArm = $('.player .arm.left');
+                var rightLeg = $('.leg.right');
+                var leftLeg = $('.leg.left');
+                var gun = $('.gun');
+                var phone = $('.phone');
+                var text = $('.player .txt');
+
+                // Main el
+                this.el.css({
+                    left: this.x,
+                    top: this.y,
+                    transform: `
+            translateX(-50%)
+            translateY(-${50 + this.anim.lift}%)
+            scaleX(${this.scaleX})
+          `,
+                });
+
+                // Text - counter the player's scaleX to keep text readable
+                text.css({
+                    transform: `scaleX(${1 / this.scaleX})`,
+                });
+
+                // Arms
+                rightArm.css({
+                    transform: `
+            translateX(${this.anim.rightArm.offsetX}px)
+            translateY(${this.anim.rightArm.offsetY}px)
+            rotate(${this.anim.rightArm.rot}rad)
+          `,
+                });
+                leftArm.css({
+                    transform: `rotate(${this.anim.leftArm.rot}rad)`,
+                });
+
+                // Legs
+                rightLeg.css({
+                    transform: `
+            translateX(-50%)
+            rotate(${this.anim.rightLeg.rot}rad)
+          `,
+                });
+                leftLeg.css({
+                    transform: `
+            translateX(-50%)
+            rotate(${this.anim.leftLeg.rot}rad)
+          `,
+                });
+
+                // Gun
+                gun.css({
+                    transform: `rotate(${this.anim.gun.rot}rad)`,
+                });
+
+                // Phone - add slight rotation for natural look
+                phone.css({
+                    transform: `rotate(${this.anim.leftArm.rot * 0.5}rad)`,
+                });
+            }
+        }
+
+        // The Controls class
+        class Controls {
+            constructor() {
+                this.keys = {};
+
+                // Keydown
+                $(window).on('keydown', (e) => {
+                    this.keys[e.key] = true;
+                });
+
+                // Keyup
+                $(window).on('keyup', (e) => {
+                    this.keys[e.key] = false;
+                });
+            }
+
+            // Check if a key is down
+            isDown(key) {
+                return this.keys[key] || false;
+            }
+        }
+
+        // The Bullet class
+        class Bullet {
+            constructor(options) {
+                // Store references
+                this.parentContainer = options.parentContainer;
+                this.malwareHandler = options.malwareHandler;
+
+                // Creating the element
+                this.createElement();
+
+                // Position
+                this.x = options.x;
+                this.y = options.y;
+                this.xvel = Math.cos(options.direction) * 15;
+                this.yvel = Math.sin(options.direction) * 15;
+
+                // Life
+                this.life = 1;
+                this.decay = 0.02;
+
+                // Updating
+                options.startUpdating(this.update.bind(this));
+            }
+
+            // Creating the element
+            createElement() {
+                this.el = $('<div class="bullet"></div>');
+                this.parentContainer.append(this.el);
+            }
+
+            // Check collision with malware
+            checkCollision() {
+                if (!this.malwareHandler) return false;
+                for (let i = 0; i < this.malwareHandler.malware.length; i++) {
+                    const malware = this.malwareHandler.malware[i];
+                    const distance = Math.sqrt(
+                        Math.pow(this.x - malware.x, 2) + 
+                        Math.pow(this.y - malware.y, 2)
+                    );
+                    if (distance < 20) { // Collision radius
+                        // Virus: hilang + popup edukasi
+                        if (malware.type === 'virus') {
+                            malware.el.remove();
+                            this.malwareHandler.malware.splice(i, 1);
+                            showEdukasiBox();
+                        // Antivirus: hilang saja
+                        } else if (malware.type === 'antivirus') {
+                            malware.el.remove();
+                            this.malwareHandler.malware.splice(i, 1);
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // Updating
+            update() {
+                // Physics
+                this.x += this.xvel;
+                this.y += this.yvel;
+
+                // Check collision
+                if (this.checkCollision()) {
+                    this.life = 0; // Destroy bullet
+                }
+
+                // Life
+                this.life -= this.decay;
+
+                // Styles
+                this.el.css({
+                    left: this.x,
+                    top: this.y,
+                    opacity: this.life,
+                });
+
+                // Remove if dead
+                if (this.life <= 0) {
+                    this.el.remove();
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        // The BulletHandler class
+        class BulletHandler {
+            constructor(options) {
+                // Store references
+                this.parentContainer = options.parentContainer;
+                this.startUpdating = options.startUpdating;
+                this.malwareHandler = options.malwareHandler;
+
+                // Bullets
+                this.bullets = [];
+            }
+
+            // Create a new bullet
+            createBullet(x, y, direction) {
+                var newBullet = new Bullet({
+                    parentContainer: this.parentContainer,
+                    startUpdating: this.startUpdating,
+                    x: x,
+                    y: y,
+                    direction: direction,
+                    malwareHandler: this.malwareHandler,
+                });
+
+                this.bullets.push(newBullet);
+            }
+        }
+
+        // The Smoke class
+        class Smoke {
+            constructor(options) {
+                // Store references
+                this.parentContainer = options.parentContainer;
+                this.startUpdating = options.startUpdating;
+
+                // Smoke clouds
+                this.clouds = [];
+            }
+
+            // Create a new smoke cloud
+            create(x, y, direction, intensity) {
+                for (var i = 0; i < intensity * 3; i++) {
+                    var newCloud = new SmokeCloud({
+                        parentContainer: this.parentContainer,
+                        startUpdating: this.startUpdating,
+                        x: x + getRandom(-10, 10),
+                        y: y + getRandom(-10, 10),
+                        direction: direction + getRandom(-0.5, 0.5),
+                    });
+
+                    this.clouds.push(newCloud);
+                }
+            }
+        }
+
+        // The SmokeCloud class
+        class SmokeCloud {
+            constructor(options) {
+                // Store references
+                this.parentContainer = options.parentContainer;
+
+                // Creating the element
+                this.createElement();
+
+                // Position
+                this.x = options.x;
+                this.y = options.y;
+                this.xvel = Math.cos(options.direction) * getRandom(1, 3);
+                this.yvel = Math.sin(options.direction) * getRandom(1, 3);
+
+                // Life
+                this.life = 1;
+                this.decay = getRandom(0.01, 0.03);
+
+                // Size
+                this.size = getRandom(10, 30);
+
+                // Updating
+                options.startUpdating(this.update.bind(this));
+            }
+
+            // Creating the element
+            createElement() {
+                this.el = $('<div class="cloud"></div>');
+                this.parentContainer.append(this.el);
+            }
+
+            // Updating
+            update() {
+                // Physics
+                this.x += this.xvel;
+                this.y += this.yvel;
+
+                // Life
+                this.life -= this.decay;
+
+                // Styles
+                this.el.css({
+                    left: this.x,
+                    top: this.y,
+                    width: this.size,
+                    height: this.size,
+                    opacity: this.life,
+                });
+
+                // Remove if dead
+                if (this.life <= 0) {
+                    this.el.remove();
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        // The EnemyHandler class
+        class EnemyHandler {
+            constructor(options) {
+                // Store references
+                this.parentContainer = options.parentContainer;
+                this.startUpdating = options.startUpdating;
+
+                // Enemies
+                this.enemies = [];
+            }
+
+            // Update all enemies
+            updateEnemies() {
+                for (var i = 0; i < this.enemies.length; i++) {}
+            }
+
+            // Create a new enemy
+            createEnemy(x, y) {
+                var enemyIndex = Math.floor(getRandom(0, enemyTypes.length));
+                var enemyData = enemyTypes[enemyIndex];
+
+                // Create the new object
+                var newEnemy = {
+                    x: x,
+                    y: y,
+                    el: $(enemyData.markup),
+                    animate: enemyData.animate,
+                    update: enemyData.update,
+                };
+
+                // Inject the element
+                this.parentContainer.append(newEnemy.el);
+
+                // Position the element
+                newEnemy.el.css({
+                    left: x,
+                    top: y,
+                });
+
+                // Store the enemy object
+                this.enemies.push(newEnemy);
+            }
+        }
+
+        // The MalwareHandler class
+        class MalwareHandler {
+            constructor(options) {
+                // Store references
+                this.parentContainer = options.parentContainer;
+                this.startUpdating = options.startUpdating;
+                this.player = options.player;
+
+                // Malware types - virus dan antivirus
+                this.malwareTypes = ['virus', 'antivirus'];
+                this.malware = [];
+                this.spawnTimer = 0;
+                this.baseSpawnInterval = 4000; // ms, awal (lebih lambat) - diperlambat
+                this.minSpawnInterval = 1200; // ms, akhir - diperlambat
+                this.spawnInterval = this.baseSpawnInterval;
+                this.startSpawning();
+            }
+
+            // Start spawning malware
+            startSpawning() {
+                this.startUpdating(this.update.bind(this));
+            }
+
+            // Update malware handler
+            update() {
+                // Update spawnInterval berdasarkan timeLeft - disesuaikan untuk 60 detik
+                if (typeof timeLeft !== 'undefined') {
+                    // Linear: makin sedikit waktu, makin cepat
+                    const t = Math.max(0, Math.min(120, timeLeft));
+                    this.spawnInterval = this.minSpawnInterval + (this.baseSpawnInterval - this.minSpawnInterval) * (t / 120);
+                }
+                this.spawnTimer += 16; // Assuming 60fps
+                if (this.spawnTimer >= this.spawnInterval) {
+                    this.spawnMalware();
+                    this.spawnTimer = 0;
+                }
+                // Update all malware
+                for (let i = this.malware.length - 1; i >= 0; i--) {
+                    this.malware[i].targetX = this.player.x;
+                    this.malware[i].targetY = this.player.y;
+                    // Update kecepatan malware juga
+                    if (typeof timeLeft !== 'undefined') {
+                        this.malware[i].updateSpeedByTime(timeLeft);
+                    }
+                    const isAlive = this.malware[i].update();
+                    if (!isAlive) {
+                        this.malware.splice(i, 1);
+                    }
+                }
+            }
+
+            // Spawn malware/antivirus dari bagian atas (X acak dari kiri ke kanan)
+            spawnMalware() {
+                const containerWidth = this.parentContainer.width();
+                const spawnX = getRandom(0, containerWidth);
+                const spawnY = -20;
+                // 80% virus, 20% antivirus
+                const rand = Math.random();
+                const malwareType = rand < 0.8 ? 'virus' : 'antivirus';
+                const newMalware = new Malware({
+                    parentContainer: this.parentContainer,
+                    startUpdating: this.startUpdating,
+                    x: spawnX,
+                    y: spawnY,
+                    type: malwareType,
+                    targetX: this.player.x,
+                    targetY: this.player.y
+                });
+                this.malware.push(newMalware);
+            }
+        }
+
+        // The Malware class
+        class Malware {
+            constructor(options) {
+                // Store references
+                this.parentContainer = options.parentContainer;
+                this.startUpdating = options.startUpdating;
+                // Position
+                this.x = options.x;
+                this.y = options.y;
+                this.targetX = options.targetX;
+                this.targetY = options.targetY;
+                this.type = options.type;
+                // Movement - Kecepatan diperlambat untuk gameplay yang lebih mudah
+                this.baseSpeed = getRandom(0.3, 0.6); // Awal lebih pelan
+                this.maxSpeed = getRandom(1.5, 2.5); // Akhir lebih pelan
+                this.speed = this.baseSpeed;
+                this.angle = Math.atan2(this.targetY - this.y, this.targetX - this.x);
+                this.xvel = Math.cos(this.angle) * this.speed;
+                this.yvel = Math.sin(this.angle) * this.speed;
+                // Life
+                this.life = 1;
+                this.decay = 0.001; // Very slow decay
+                // Create element
+                this.createElement();
+                // Start updating
+                this.startUpdating(this.update.bind(this));
+                // Additional properties
+                this.hasHitPlayer = false;
+            }
+
+            // Create malware/antivirus element
+            createElement() {
+                if (this.type === 'virus') {
+                    this.el = $(`<div class="malware virus">
+                        <div class="spikes">
+                            <div class="left"></div>
+                            <div class="right"></div>
+                        </div>
+                        <div class="core"></div>
+                    </div>`);
+                } else if (this.type === 'antivirus') {
+                    this.el = $(`<div class="malware antivirus">
+                        <div class="core"></div>
+                    </div>`);
+                }
+                this.parentContainer.append(this.el);
+            }
+
+            // Update malware/antivirus
+            update() {
+                // Move towards target
+                this.x += this.xvel;
+                this.y += this.yvel;
+                // Update target position (follow player)
+                if (this.targetX && this.targetY) {
+                    this.angle = Math.atan2(this.targetY - this.y, this.targetX - this.x);
+                    this.xvel = Math.cos(this.angle) * this.speed;
+                    this.yvel = Math.sin(this.angle) * this.speed;
+                }
+                // Life decay
+                this.life -= this.decay;
+                // Update styles
+                this.el.css({
+                    left: this.x,
+                    top: this.y,
+                    opacity: this.life
+                });
+                // Cek tabrakan dengan player (bounding box)
+                const playerRect = document.querySelector('.player').getBoundingClientRect();
+                const malwareRect = this.el[0].getBoundingClientRect();
+                const overlap = !(
+                    playerRect.right < malwareRect.left ||
+                    playerRect.left > malwareRect.right ||
+                    playerRect.bottom < malwareRect.top ||
+                    playerRect.top > malwareRect.bottom
+                );
+                if (overlap && playerHealth > 0 && !this.hasHitPlayer) {
+                    if (this.type === 'virus') {
+                        playerHealth -= 5; // Kerusakan dikurangi dari 10 ke 5
+                        if (playerHealth < 0) playerHealth = 0;
+                        updateHealthBar();
+                    } else if (this.type === 'antivirus') {
+                        playerHealth += 15; // Healing ditingkatkan dari 10 ke 15
+                        if (playerHealth > 100) playerHealth = 100;
+                        updateHealthBar();
+                    }
+                    this.hasHitPlayer = true;
+                    this.el.remove();
+                    return false;
+                }
+                // Remove if dead or off screen
+                if (this.life <= 0) {
+                    this.el.remove();
+                    return false;
+                }
+                return true;
+            }
+
+            // Update kecepatan berdasarkan waktu - disesuaikan untuk 60 detik
+            updateSpeedByTime(timeLeft) {
+                // Linear: makin sedikit waktu, makin cepat
+                const t = Math.max(0, Math.min(120, timeLeft));
+                this.speed = this.maxSpeed - (this.maxSpeed - this.baseSpeed) * (t / 120);
+                this.angle = Math.atan2(this.targetY - this.y, this.targetX - this.x);
+                this.xvel = Math.cos(this.angle) * this.speed;
+                this.yvel = Math.sin(this.angle) * this.speed;
+            }
+        }
+
+        // Rooms
+        class RoomHandler {
+            constructor(options) {
+                // Store references
+                this.parentContainer = options.parentContainer;
+                this.createEnemy = options.createEnemy;
+
+                // Load a room on init
+                this.newRoom();
+            }
+
+            // Unloading / loading a room
+            newRoom() {
+                var roomIndex = Math.floor(getRandom(0, rooms.length));
+                var roomData = rooms[roomIndex];
+
+                // Generate everything
+                for (var i = 0; i < roomData.length; i++) {
+                    var item = roomData[i];
+
+                    // Enemies
+                    if (item.type === 'enemy') {
+                        this.createEnemy(
+                            (this.parentContainer.width() * item.x) / 100,
+                            (this.parentContainer.height() * item.y) / 100
+                        );
+                    }
+                }
+            }
+        }
+
+        // The Game class
+        class Game {
+            constructor() {
+                // The container element
+                this.container = $('.container');
+
+                // Updating
+                this.updateQueue = [];
+                this.update();
+
+                // Enemies
+                this.enemyHandler = new EnemyHandler({
+                    parentContainer: this.container,
+                    startUpdating: this.startUpdating.bind(this),
+                });
+
+                // Rooms
+                this.roomHandler = new RoomHandler({
+                    parentContainer: this.container,
+                    startUpdating: this.startUpdating.bind(this),
+                    createEnemy: this.enemyHandler.createEnemy,
+                });
+
+                // The controls
+                this.controls = new Controls();
+
+                // Smoke
+                this.smoke = new Smoke({
+                    parentContainer: this.container,
+                    startUpdating: this.startUpdating.bind(this),
+                });
+
+                // The player
+                this.player = new Player({
+                    parentContainer: this.container,
+                    startUpdating: this.startUpdating.bind(this),
+                    controls: this.controls,
+                    createBullet: null, // Will be set after bulletHandler is created
+                    createSmoke: this.smoke.create.bind(this.smoke),
+                });
+
+                // Malware
+                this.malwareHandler = new MalwareHandler({
+                    parentContainer: this.container,
+                    startUpdating: this.startUpdating.bind(this),
+                    player: this.player,
+                });
+
+                // Bullets
+                this.bulletHandler = new BulletHandler({
+                    parentContainer: this.container,
+                    startUpdating: this.startUpdating.bind(this),
+                    malwareHandler: this.malwareHandler,
+                });
+
+                // Set createBullet reference after bulletHandler is created
+                this.player.createBullet = this.bulletHandler.createBullet.bind(this.bulletHandler);
+            }
+
+            // Adding a function to the update queue.
+            startUpdating(func) {
+                this.updateQueue.push(func);
+            }
+
+            // Updating the queue
+            update() {
+                if (gameOver || pauseGame) {
+                    window.requestAnimationFrame(this.update.bind(this));
+                    return;
+                }
+                for (var i = 0; i < this.updateQueue.length; i++) {
+                    this.updateQueue[i]();
+                }
+                window.requestAnimationFrame(this.update.bind(this));
+            }
+        }
+
+        // Tracking the mouse position relative to container
+        $('.container').on('mousemove', function (e) {
+            var containerOffset = $('.container').offset();
+            mouse.x = e.pageX - containerOffset.left;
+            mouse.y = e.pageY - containerOffset.top;
+        });
+
+        // Also track mouse on window for better responsiveness
+        $(window).on('mousemove', function (e) {
+            var containerOffset = $('.container').offset();
+            if (containerOffset) {
+                mouse.x = e.pageX - containerOffset.left;
+                mouse.y = e.pageY - containerOffset.top;
+            }
+        });
+
+        // Get a random number
+        function getRandom(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        // ******************************** \\
+        // ***********The Rooms************ \\
+        // ******************************** \\
+
+        /*
+      
+      Info - The room data below holds information about
+            what items can spawn where.
+            
+            Positions are used as percentages to ensure
+            Everything fits on the screen.
+            
+            I would have used the typical tilemap row/column
+            array technique, but the rooms are so simple
+            I figured this alternative would be sufficient.
+            
+            This concept could be expanded to include items,
+            spawning odds, secrets, and basically any other
+            object-based mechanic you would implement into
+            the game.
+
+    */
+        var rooms = [];
+        rooms[0] = [
+            //I am not adding any of them now.
+        ];
+
+        // ******************************** \\
+        // **********Enemy Types*********** \\
+        // ******************************** \\
+
+        /*
+      
+      Info - This array contains info on enemy markup,
+            AI, etc.,
+            
+            If you do not specify an update function
+            it will default to one defined in the 
+            `EnemyHandler` class.
+
+    */
+
+        var enemyTypes = [];
+        enemyTypes[0] = {
+            markup: `
+        <div class="enemy jimmy">
+          <div class='eye right'></div>
+          <div class='eye left'></div>
+          <div class='mouth'></div>
+          <div class='arm right'></div>
+          <div class='arm left'></div>
+          <div class='leg right'></div>
+          <div class='leg left'></div>
+        </div>
+      `,
+            animate: function (counter) {},
+        };
+
+        // Start the game
+        new Game();
+
+        // Data edukasi malware
+        const edukasiList = [
+            {
+                title: 'Trojan',
+                content: 'Malware yang menyamar sebagai aplikasi aman.'
+            },
+            {
+                title: 'Worm',
+                content: 'Malware yang menyebar otomatis ke perangkat lain.'
+            },
+            {
+                title: 'Spyware',
+                content: 'Malware yang memata-matai aktivitas pengguna.'
+            },
+            {
+                title: 'Phishing',
+                content: 'Penipuan lewat pesan/email palsu untuk mencuri data.'
+            },
+            {
+                title: 'Link Berbahaya',
+                content: 'Jangan klik link mencurigakan di media sosial.'
+            },
+            {
+                title: 'Tips',
+                content: 'Download aplikasi hanya dari sumber resmi.'
+            },
+            {
+                title: 'Tips',
+                content: 'Aktifkan verifikasi dua langkah di akunmu.'
+            },
+            {
+                title: 'Tips',
+                content: 'Ganti password secara berkala.'
+            }
+        ];
+
+        // Fungsi untuk menampilkan edukasi
+        function showEdukasiBox() {
+            const idx = Math.floor(Math.random() * edukasiList.length);
+            document.querySelector('.edukasi-title').textContent = edukasiList[idx].title;
+            document.querySelector('.edukasi-content').textContent = edukasiList[idx].content;
+            document.querySelector('.edukasi-modal').style.display = 'flex';
+            pauseGame = true;
+        }
+        document.querySelector('.edukasi-close').onclick = function() {
+            document.querySelector('.edukasi-modal').style.display = 'none';
+            pauseGame = false;
+        };
+
+        // Timer logic - Waktu diubah dari 60 detik menjadi 10 detik
+        let timeLeft = 60;
+        let timerInterval = setInterval(function() {
+            if (pauseGame || gameOver) return;
+            timeLeft--;
+            if (timeLeft < 0) timeLeft = 0;
+            updateTimerBox();
+            if (timeLeft === 0) {
+                if (playerHealth > 0) {
+                    // SUCCESSFUL overlay
+                    document.querySelector('.success-overlay').style.display = 'flex';
+                    pauseGame = true;
+                } else {
+                    document.querySelector('.game-over-overlay').style.display = 'flex';
+                    pauseGame = true;
+                }
+            }
+        }, 1000);
+        function updateTimerBox() {
+            const min = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const sec = (timeLeft % 60).toString().padStart(2, '0');
+            document.querySelector('.timer-text').textContent = `${min}:${sec}`;
+        }
+        updateTimerBox();
+
+        // Event tombol Try Again dan Continue - Continue button tidak melakukan apa-apa
+        document.querySelector('.try-again-btn').onclick = function() {
+            // Set flag agar reload langsung ke gameplay
+            localStorage.setItem('skipIntro', '1');
+            window.location.reload();
+        };
+        document.querySelector('.continue-btn').onclick = function() {
+            // Kirim pesan ke parent window bahwa game selesai
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'gameCompleted',
+                    points: 100
+                }, '*');
+            }
+        };
+
+        // Sembunyikan start screen dan mulai game saat Play diklik
+        const startScreen = document.querySelector('.start-screen');
+        const startBtn = document.querySelector('.start-btn');
+        let gameStarted = false;
+        if (startBtn) {
+            startBtn.onclick = function() {
+                startScreen.style.display = 'none';
+                gameStarted = true;
+                introStep = 0;
+                showIntroStep(0);
+                introOverlay.style.display = 'flex';
+                pauseGame = true;
+                updateTimerVisibility();
+                updateGameContainerVisibility();
+            };
+        }
+        // Pause game sebelum Play diklik
+        pauseGame = true;
+
+        // --- Overlay Perkenalan Elemen Game ---
+        let introStep = 0;
+        const introOverlay = document.querySelector('.intro-overlay');
+        const introLeft = document.querySelector('.intro-side-left');
+        const introRight = document.querySelector('.intro-side-right');
+        const introCenter = document.querySelector('.intro-center');
+        const introBtn = document.querySelector('.intro-next-btn');
+
+        const introData = [
+            {
+                center: `<div style='display:flex; justify-content:center; align-items:center;'><div class=\"player\" style=\"position:static; transform:none; margin:auto; scale:1.1; box-shadow:0 2px 10px #00c3ff33;\"><div class=\"player-health-bar\" style=\"display:none\"></div><div class=\"shield\" style=\"display:none\"></div><div class='hat'></div><div class='eye right'></div><div class='eye left'></div><div class='mouth'></div><div class='shirt'><div class='under'></div></div><div class='arm right'><div class='sleeve'></div><div class='gun'><div class='grey'></div><div class='barrel'></div></div></div><div class='arm left'><div class='sleeve'></div><div class='phone'><div class='screen'></div></div></div><div class='leg right'><div class='pant'></div></div><div class='leg left'><div class='pant'></div></div></div></div>`,
+                desc: 'Ini adalah karaktermu!<br>Player akan melindungi akun dari serangan. Player tidak bisa bergerak, hanya bisa menembak malware yang turun.'
+            },
+            {
+                center: `<div style='display:flex; justify-content:center; align-items:center;'><div class=\"malware virus\" style=\"position:static; width:38px; height:38px; margin:auto; box-shadow:0 0 0 3px #ff4757cc, 0 0 10px #ff4757;\"></div></div>`,
+                desc: 'Ini adalah malware/virus!<br>Jika menyentuh player, darah berkurang. Tembak malware untuk melindungi akunmu dan dapatkan pesan edukasi.'
+            },
+            {
+                center: `<div style='display:flex; justify-content:center; align-items:center;'><div class=\"malware antivirus\" style=\"position:static; width:38px; height:38px; margin:auto; box-shadow:0 0 0 3px #00e6b8cc, 0 0 10px #00e6b8;\"><div class='core'></div></div></div>`,
+                desc: 'Ini adalah antivirus!<br>Jika diambil, darah bertambah. Jangan ditembak! Antivirus akan melindungi akunmu dan menambah darah.'
+            }
+        ];
+
+        function showIntroStep(step) {
+            document.querySelector('.intro-center').innerHTML = introData[step].center;
+            document.querySelector('.intro-desc').innerHTML = introData[step].desc;
+        }
+
+        introBtn.onclick = function() {
+            introStep++;
+            if (introStep < introData.length) {
+                showIntroStep(introStep);
+            } else {
+                introOverlay.style.display = 'none';
+                pauseGame = false;
+            }
+            updateTimerVisibility();
+            updateGameContainerVisibility();
+        };
+
+        // Sembunyikan timer saat intro/perkenalan
+        function updateTimerVisibility() {
+            const timerBox = document.querySelector('.timer-box');
+            const startScreen = document.querySelector('.start-screen');
+            const introOverlay = document.querySelector('.intro-overlay');
+            if ((startScreen && startScreen.style.display !== 'none') || (introOverlay && introOverlay.style.display !== 'none')) {
+                if (timerBox) timerBox.style.display = 'none';
+            } else {
+                if (timerBox) timerBox.style.display = '';
+            }
+        }
+        // Sembunyikan timer saat awal
+        updateTimerVisibility();
+
+        function updateGameContainerVisibility() {
+            const container = document.querySelector('.container');
+            const introOverlay = document.querySelector('.intro-overlay');
+            if (introOverlay && introOverlay.style.display !== 'none') {
+                if (container) container.style.display = 'none';
+            } else {
+                if (container) container.style.display = '';
+            }
+        }
+        // Sembunyikan game container saat awal jika perlu
+        updateGameContainerVisibility();
+
+        // Pada saat halaman load, jika skipIntro, langsung mulai game
+        window.addEventListener('DOMContentLoaded', function() {
+          if (localStorage.getItem('skipIntro') === '1') {
+            // Sembunyikan start screen dan intro overlay
+            const startScreen = document.querySelector('.start-screen');
+            const introOverlay = document.querySelector('.intro-overlay');
+            if (startScreen) startScreen.style.display = 'none';
+            if (introOverlay) introOverlay.style.display = 'none';
+            pauseGame = false;
+            gameOver = false;
+            updateTimerVisibility && updateTimerVisibility();
+            updateGameContainerVisibility && updateGameContainerVisibility();
+            localStorage.removeItem('skipIntro');
+          }
+        });
+    </script>
+</body>
+</html>

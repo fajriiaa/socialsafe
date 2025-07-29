@@ -1,0 +1,1217 @@
+html, body, .game-container {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    overflow: hidden !important;
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+}
+
+.device-frame {
+    background: linear-gradient(135deg, #222 0%, #444 60%, #222 100%);
+    border-radius: 32px;
+    padding: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 1.5px 0 #fff2 inset;
+    position: relative;
+    width: 650px;
+    height: 420px;
+    transform: scale(0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    transform-origin: center center;
+    transition: transform 0.3s ease-out;
+    flex-shrink: 0;
+}
+
+/* Efek glossy highlight di frame atas */
+.device-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    border-radius: 32px 32px 0 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Efek glossy highlight di frame bawah */
+.device-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 18px;
+    border-radius: 0 0 32px 32px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.01) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Speaker depan (pengganti kamera bulat) */
+.device-frame .tablet-speaker {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 7px;
+    background: linear-gradient(180deg, #444 0%, #181818 100%);
+    border-radius: 8px;
+    box-shadow:
+        0 1.5px 4px rgba(0,0,0,0.22),
+        0 0 0 1.5px #222 inset,
+        0 2px 6px rgba(0,0,0,0.12) inset;
+    z-index: 20;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
+}
+.device-frame .tablet-speaker::before {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 2px;
+    margin-top: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 100%);
+    border-radius: 2px;
+    opacity: 0.7;
+}
+.device-frame .tablet-speaker::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 1.5px;
+    margin-top: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 100%);
+    border-radius: 1px;
+    opacity: 0.5;
+}
+
+/* Tombol power/volume di sisi kanan */
+.tablet-btn {
+    position: absolute;
+    right: -4px;
+    top: 80px;
+    width: 6px;
+    height: 40px;
+    background: linear-gradient(90deg, #444 60%, #222 100%);
+    border-radius: 4px;
+    box-shadow: 1px 0 4px rgba(0,0,0,0.18);
+    z-index: 11;
+}
+
+.device-screen {
+    background: #fff;
+    border-radius: 22px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 0 2px #222, 0 2px 12px rgba(0,0,0,0.08) inset;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+}
+
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.logo-shield {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 15px;
+    position: relative;
+    transform: rotate(45deg);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.logo-shield::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 8px;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 18px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 28px;
+    max-width: 400px;
+    line-height: 1.4;
+}
+
+.start-screen {
+    position: relative;
+}
+
+.start-button {
+    background: linear-gradient(90deg, #4CAF50 60%, #388e3c 100%);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.18);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.start-button:hover {
+    background: linear-gradient(90deg, #388e3c 0%, #4CAF50 100%);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.25);
+}
+
+.button-text {
+    margin-right: 4px;
+}
+
+.button-icon {
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.start-button:hover .button-icon {
+    transform: translateX(4px);
+}
+
+
+
+/* Hapus kamera bulat dan glossy sebelumnya */
+.device-frame::after, .camera-glossy { display: none !important; }
+
+.edu-row {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    width: 100%;
+    height: 320px;
+    margin-bottom: 32px;
+}
+.edu-left {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-right: 12px;
+}
+.edu-left h2 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 12px;
+}
+.edu-desc {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.5;
+}
+.edu-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.edu-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f7f7f7;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+    padding: 18px 16px 10px 16px;
+}
+.img-caption {
+    font-size: 0.92rem;
+    color: #666;
+    margin-top: 10px;
+    text-align: center;
+}
+.edu-nav {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 8px;
+}
+.nav-btn {
+    background: linear-gradient(90deg, #4CAF50 60%, #388e3c 100%);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 8px 22px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.13);
+    transition: background 0.2s, transform 0.2s;
+}
+.nav-btn:disabled {
+    background: #bdbdbd;
+    color: #fff;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.nav-btn:not(:disabled):hover {
+    background: linear-gradient(90deg, #388e3c 0%, #4CAF50 100%);
+    transform: translateY(-2px) scale(1.04);
+}
+.mockup-profile-ui {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(44,62,80,0.10);
+    border: 1px solid #e0e0e0;
+    min-width: 170px;
+    max-width: 210px;
+    width: 100%;
+    padding: 0 0 8px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+.mockup-header-ui {
+    width: 100%;
+    height: 32px;
+    background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 0;
+}
+.mockup-profile-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0 8px;
+    margin-top: -18px;
+    margin-bottom: 4px;
+}
+.mockup-avatar-ui {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #bdbdbd 60%, #757575 100%);
+    border: 2px solid #fff;
+    box-shadow: 0 1px 2px rgba(44,62,80,0.10);
+    margin-right: 8px;
+}
+.mockup-profile-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-width: 0;
+}
+.mockup-nama-ui {
+    font-weight: 700;
+    color: #222;
+    font-size: 0.98rem;
+    margin-bottom: 1px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+.mockup-verified {
+    color: #1976d2;
+    font-size: 1em;
+    margin-left: 2px;
+}
+.mockup-username-ui {
+    color: #888;
+    font-size: 0.89rem;
+    margin-bottom: 3px;
+}
+.mockup-info-ui {
+    width: 100%;
+    font-size: 0.89rem;
+    color: #444;
+    margin-bottom: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+.mockup-icon {
+    margin-right: 4px;
+    font-size: 1em;
+}
+.mockup-btn-edit {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: none;
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 3px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(25,118,210,0.07);
+    transition: background 0.2s, color 0.2s;
+}
+.mockup-btn-edit:hover {
+    background: #1976d2;
+    color: #fff;
+}
+.mockup-warning-ui {
+    background: #ffeaea;
+    color: #d32f2f;
+    border-radius: 5px;
+    padding: 4px 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 6px 8px 0 8px;
+    text-align: center;
+    border: 1px solid #ffcdd2;
+    box-shadow: 0 1px 2px rgba(211,47,47,0.07);
+}
+
+.edu-alert {
+    background: rgba(255,255,255,0.18);
+    border: 1.5px solid #4fc3f7;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(33,150,243,0.10), 0 0 0 2px #b3e5fc inset;
+    padding: 18px 18px 14px 18px;
+    position: relative;
+    min-width: 0;
+    max-width: 340px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+    animation: fadeInCard 0.7s;
+}
+@keyframes fadeInCard {
+    from { opacity: 0; transform: translateY(20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+.edu-alert::before {
+    content: '';
+    position: absolute;
+    top: -30px; left: -30px;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, #4fc3f7 0%, transparent 70%);
+    opacity: 0.18;
+    z-index: 0;
+}
+.edu-alert::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 60px; height: 60px;
+    background: radial-gradient(circle, #1976d2 0%, transparent 70%);
+    opacity: 0.13;
+    z-index: 0;
+}
+.alert-icon {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    color: #1976d2;
+    z-index: 1;
+}
+.edu-left h2 {
+    font-size: 1.13rem;
+    color: #1976d2;
+    font-weight: 800;
+    margin-bottom: 8px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    z-index: 1;
+    text-shadow: 0 2px 8px #b3e5fc44;
+}
+.edu-desc {
+    font-size: 1.01rem;
+    color: #263238;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 0;
+    z-index: 1;
+    text-shadow: 0 1px 4px #b3e5fc22;
+}
+
+.mockup-post-ui {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(44,62,80,0.10);
+    border: 1px solid #e0e0e0;
+    min-width: 170px;
+    max-width: 210px;
+    width: 100%;
+    padding: 0 0 8px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+.mockup-post-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px 0 10px;
+}
+.mockup-avatar-ui.small {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #bdbdbd 60%, #757575 100%);
+    border: 2px solid #fff;
+    box-shadow: 0 1px 2px rgba(44,62,80,0.10);
+    margin-right: 4px;
+}
+.mockup-post-img {
+    width: 90%;
+    height: 70px;
+    background: #e0e0e0;
+    border-radius: 7px;
+    margin: 8px auto 6px auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.mockup-ktp-img {
+    width: 60px;
+    height: 38px;
+    background: linear-gradient(90deg, #b3e5fc 60%, #e1f5fe 100%);
+    border: 1.5px solid #0288d1;
+    border-radius: 4px;
+    color: #0288d1;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    position: relative;
+    letter-spacing: 1px;
+}
+.mockup-img-blur {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(135deg, #fff 0 4px, #0288d1 4px 8px);
+    opacity: 0.18;
+    z-index: 3;
+    pointer-events: none;
+}
+.mockup-post-caption {
+    font-size: 0.93rem;
+    color: #444;
+    margin: 0 10px 4px 10px;
+    text-align: center;
+}
+
+.mockup-story-ui {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(44,62,80,0.10);
+    border: 1px solid #e0e0e0;
+    min-width: 170px;
+    max-width: 210px;
+    width: 100%;
+    padding: 0 0 8px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+.mockup-story-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px 0 10px;
+}
+.mockup-story-img {
+    width: 90%;
+    height: 70px;
+    background: linear-gradient(135deg, #e3f2fd 60%, #b3e5fc 100%);
+    border-radius: 7px;
+    margin: 8px auto 6px auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.mockup-map {
+    width: 80px;
+    height: 48px;
+    background: linear-gradient(135deg, #b3e5fc 60%, #e1f5fe 100%);
+    border-radius: 6px;
+    border: 1.5px solid #0288d1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px rgba(44,62,80,0.07);
+}
+.mockup-map-pin {
+    font-size: 1.2rem;
+    color: #0288d1;
+    margin-bottom: 2px;
+}
+.mockup-map-label {
+    font-size: 0.85rem;
+    color: #0288d1;
+    font-weight: 700;
+    background: #fff;
+    border-radius: 4px;
+    padding: 1px 7px;
+    margin-top: 2px;
+    box-shadow: 0 1px 2px #0288d122;
+}
+
+.lockscreen {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: opacity 0.7s, transform 0.7s;
+    opacity: 1;
+    transform: scale(1);
+}
+.lockscreen.lockscreen-hide {
+    opacity: 0;
+    transform: scale(1.08);
+    pointer-events: none;
+}
+.lockscreen-wallpaper {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80');
+    background-size: cover;
+    background-position: center;
+    filter: blur(2.5px) brightness(0.85);
+    z-index: 1;
+}
+.lockscreen-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+.lockscreen-glass {
+    background: rgba(255,255,255,0.18);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px #0002, 0 0 0 1.5px #fff4 inset;
+    padding: 24px 36px 18px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    margin-bottom: 18px;
+    animation: fadeInCard 1s;
+}
+.lockscreen-time {
+    font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+    font-size: 3.2rem;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 16px #0008;
+    margin-bottom: 6px;
+    margin-top: 0;
+    user-select: none;
+}
+.lockscreen-date {
+    font-size: 1.1rem;
+    color: #e3f2fd;
+    font-weight: 500;
+    text-shadow: 0 2px 8px #0006;
+    margin-bottom: 0;
+    user-select: none;
+}
+.lockscreen-handle {
+    width: 54px;
+    height: 10px;
+    background: linear-gradient(90deg, #222 30%, #fff 60%, #222 100%);
+    border-radius: 8px;
+    margin-bottom: 22px;
+    margin-top: 18px;
+    box-shadow: 0 2px 12px #0005, 0 0 8px #fff3 inset;
+    opacity: 0.92;
+    animation: handleGlow 2s infinite alternate;
+}
+@keyframes handleGlow {
+    from { box-shadow: 0 2px 12px #0005, 0 0 8px #fff3 inset; }
+    to   { box-shadow: 0 2px 18px #1976d2aa, 0 0 16px #fff6 inset; }
+}
+.swipe-text {
+    color: #fff;
+    font-size: 1.13rem;
+    font-weight: 600;
+    text-shadow: 0 2px 8px #0006;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+    opacity: 0.95;
+    background: linear-gradient(90deg, #fff8, #b3e5fc88 80%);
+    border-radius: 8px;
+    padding: 6px 22px 6px 22px;
+    transition: background 0.2s;
+    cursor: pointer;
+    animation: swipeTextFade 1.5s infinite alternate;
+}
+@keyframes swipeTextFade {
+    from { opacity: 0.7; }
+    to   { opacity: 1; }
+}
+
+/* Responsive Design dengan Scale */
+@media (max-width: 768px) {
+    .device-frame {
+        transform: scale(0.6);
+    }
+    .tablet-btn {
+        transform: scale(0.6);
+    }
+}
+
+@media (max-width: 480px) {
+    .device-frame {
+        transform: scale(0.5);
+    }
+    .tablet-btn {
+        transform: scale(0.5);
+    }
+}
+
+@media (max-width: 360px) {
+    .device-frame {
+        transform: scale(0.4);
+    }
+    .tablet-btn {
+        transform: scale(0.4);
+    }
+}
+
+/* Tambahan untuk layar yang sangat kecil */
+@media (max-width: 320px) {
+    .device-frame {
+        transform: scale(0.35);
+    }
+    .tablet-btn {
+        transform: scale(0.35);
+    }
+}
+
+/* Untuk layar yang lebih besar */
+@media (min-width: 1200px) {
+    .device-frame {
+        transform: scale(1.1);
+    }
+    .tablet-btn {
+        transform: scale(1.1);
+    }
+}
+
+/* Penyesuaian untuk elemen game dalam device screen */
+@media (max-width: 768px) {
+    .screen-content {
+        padding: 16px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .start-button {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .screen-content {
+        padding: 12px;
+    }
+    
+    h1 {
+        font-size: 1.3rem;
+    }
+    
+    .subtitle {
+        font-size: 0.85rem;
+    }
+    
+    .start-button {
+        padding: 8px 20px;
+        font-size: 0.85rem;
+    }
+    
+    /* Penyesuaian untuk overlay game */
+    .game-over-overlay,
+    .success-overlay,
+    .intro-overlay {
+        padding: 20px;
+    }
+    
+    .overlay-content {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .overlay-title {
+        font-size: 1.2rem;
+    }
+    
+    .overlay-button {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+    
+    /* Penyesuaian untuk tutorial dan perkenalan */
+    .tutorial-popup {
+        max-width: 200px;
+        font-size: 0.85rem;
+        padding: 12px;
+    }
+    
+    .intro-content {
+        gap: 16px;
+    }
+    
+    .intro-left,
+    .intro-right {
+        flex: 1;
+    }
+    
+    .intro-title {
+        font-size: 1.1rem;
+    }
+    
+    .intro-description {
+        font-size: 0.8rem;
+    }
+}
+
+/* Penyesuaian untuk layar yang sangat kecil */
+@media (max-width: 320px) {
+    .screen-content {
+        padding: 8px;
+    }
+    
+    h1 {
+        font-size: 1.1rem;
+    }
+    
+    .subtitle {
+        font-size: 0.75rem;
+    }
+    
+    .start-button {
+        padding: 6px 16px;
+        font-size: 0.8rem;
+    }
+    
+    .game-over-overlay,
+    .success-overlay,
+    .intro-overlay {
+        padding: 16px;
+    }
+    
+    .overlay-content {
+        padding: 12px;
+        border-radius: 10px;
+    }
+    
+    .overlay-title {
+        font-size: 1rem;
+    }
+    
+    .overlay-button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .tutorial-popup {
+        max-width: 160px;
+        font-size: 0.75rem;
+        padding: 8px;
+    }
+    
+    .intro-content {
+        gap: 12px;
+        flex-direction: column;
+    }
+    
+    .intro-title {
+        font-size: 1rem;
+    }
+    
+    .intro-description {
+        font-size: 0.75rem;
+    }
+}
+
+/* Penyesuaian untuk layar yang lebih besar */
+@media (min-width: 1200px) {
+    .screen-content {
+        padding: 32px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .start-button {
+        padding: 14px 32px;
+        font-size: 1.1rem;
+    }
+    
+    .game-over-overlay,
+    .success-overlay,
+    .intro-overlay {
+        padding: 32px;
+    }
+    
+    .overlay-content {
+        padding: 24px;
+        border-radius: 16px;
+    }
+    
+    .overlay-title {
+        font-size: 1.4rem;
+    }
+    
+    .overlay-button {
+        padding: 12px 24px;
+        font-size: 1.1rem;
+    }
+    
+    .tutorial-popup {
+        max-width: 280px;
+        font-size: 1rem;
+        padding: 16px;
+    }
+    
+    .intro-content {
+        gap: 24px;
+    }
+    
+    .intro-title {
+        font-size: 1.3rem;
+    }
+    
+    .intro-description {
+        font-size: 1rem;
+    }
+}
+
+/* Penyesuaian untuk elemen game shooting */
+@media (max-width: 768px) {
+    .game-container {
+        font-size: 0.9rem;
+    }
+    
+    .txt {
+        font-size: 1.2rem;
+    }
+    
+    .player {
+        width: 40px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-container {
+        font-size: 0.8rem;
+    }
+    
+    .txt {
+        font-size: 1rem;
+    }
+    
+    .player {
+        width: 35px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 320px) {
+    .game-container {
+        font-size: 0.7rem;
+    }
+    
+    .txt {
+        font-size: 0.9rem;
+    }
+    
+    .player {
+        width: 30px;
+        height: 40px;
+    }
+}
+
+/* Penyesuaian untuk elemen game lainnya */
+@media (max-width: 768px) {
+    .malware, .antivirus {
+        transform: scale(0.9);
+    }
+    
+    .bullet {
+        transform: scale(0.9);
+    }
+    
+    .score, .health, .timer {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .malware, .antivirus {
+        transform: scale(0.8);
+    }
+    
+    .bullet {
+        transform: scale(0.8);
+    }
+    
+    .score, .health, .timer {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .malware, .antivirus {
+        transform: scale(0.7);
+    }
+    
+    .bullet {
+        transform: scale(0.7);
+    }
+    
+    .score, .health, .timer {
+        font-size: 0.7rem;
+    }
+}
+
+/* Memastikan device frame tetap proporsional */
+@media (max-width: 768px) {
+    .device-frame {
+        margin: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .device-frame {
+        margin: 15px;
+    }
+}
+
+@media (max-width: 320px) {
+    .device-frame {
+        margin: 10px;
+    }
+}
+
+/* Penyesuaian untuk orientasi landscape */
+@media (max-height: 500px) and (orientation: landscape) {
+    .device-frame {
+        transform: scale(0.4);
+        margin: 10px;
+    }
+    
+    .tablet-btn {
+        transform: scale(0.4);
+    }
+    
+    .screen-content {
+        padding: 8px;
+    }
+    
+    h1 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    
+    .subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 12px;
+    }
+    
+    .start-button {
+        padding: 6px 16px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Penyesuaian untuk tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .device-frame {
+        transform: scale(0.8);
+    }
+    
+    .tablet-btn {
+        transform: scale(0.8);
+    }
+    
+    .screen-content {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    .subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .start-button {
+        padding: 11px 26px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Penyesuaian untuk desktop besar */
+@media (min-width: 1400px) {
+    .device-frame {
+        transform: scale(1.2);
+    }
+    
+    .tablet-btn {
+        transform: scale(1.2);
+    }
+    
+    .screen-content {
+        padding: 36px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .start-button {
+        padding: 16px 36px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Memastikan responsivitas yang konsisten */
+@media (max-width: 600px) {
+    .device-frame {
+        transform: scale(0.55);
+    }
+    
+    .tablet-btn {
+        transform: scale(0.55);
+    }
+}
+
+/* Penyesuaian untuk memastikan game tetap proporsional */
+@media (max-width: 400px) {
+    .device-frame {
+        transform: scale(0.45);
+    }
+    
+    .tablet-btn {
+        transform: scale(0.45);
+    }
+}
+
+/* Penyesuaian untuk memastikan game tetap proporsional pada layar yang sangat kecil */
+@media (max-width: 280px) {
+    .device-frame {
+        transform: scale(0.3);
+    }
+    
+    .tablet-btn {
+        transform: scale(0.3);
+    }
+}

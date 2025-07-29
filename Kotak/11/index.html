@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <!-- Learning Interface -->
+                <div class="learning-interface">
+                    <!-- Header -->
+                    <div class="learning-header">
+                        <h1 class="learning-title">Edukasi Keamanan Digital</h1>
+                        <div class="learning-stats">
+                            <span class="progress-text">Materi <span id="currentLesson">1</span> dari <span id="totalLessons">4</span></span>
+                            <span class="completion">Selesai: <span id="completionPercent">0</span>%</span>
+                        </div>
+                    </div>
+
+                    <!-- Learning Content -->
+                    <div class="learning-content" id="learningContent">
+                        <!-- Welcome Popup -->
+                        <div class="welcome-popup" id="welcomePopup">
+                            <div class="popup-content">
+                                <p>Pelajari cara mengidentifikasi dan melindungi diri dari akun palsu di media sosial</p>
+                                <button class="ok-btn" onclick="showLearningOverview()">OK</button>
+                            </div>
+                        </div>
+
+                        <!-- Learning Overview Screen -->
+                        <div class="learning-overview-screen" id="learningOverviewScreen" style="display: none;">
+                            <div class="overview-content">
+                                <h2>Materi yang Akan Dipelajari</h2>
+                                <div class="lesson-list">
+                                    <div class="lesson-item">
+                                        <span class="lesson-number">1</span>
+                                        <div class="lesson-info">
+                                            <h4>Pengenalan Akun Palsu</h4>
+                                            <p>Apa itu akun palsu dan mengapa berbahaya</p>
+                                        </div>
+                                    </div>
+                                    <div class="lesson-item">
+                                        <span class="lesson-number">2</span>
+                                        <div class="lesson-info">
+                                            <h4>Tanda-tanda Akun Palsu</h4>
+                                            <p>Karakteristik dan red flags yang perlu diperhatikan</p>
+                                        </div>
+                                    </div>
+                                    <div class="lesson-item">
+                                        <span class="lesson-number">3</span>
+                                        <div class="lesson-info">
+                                            <h4>Analisis Profil</h4>
+                                            <p>Cara menganalisis profil media sosial</p>
+                                        </div>
+                                    </div>
+                                    <div class="lesson-item">
+                                        <span class="lesson-number">4</span>
+                                        <div class="lesson-info">
+                                            <h4>Tips Keamanan</h4>
+                                            <p>Cara melindungi diri dari akun palsu</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="start-learning-btn" onclick="startLearning()">Mulai Belajar</button>
+                            </div>
+                        </div>
+
+                        <!-- Lesson Screen -->
+                        <div class="lesson-screen" id="lessonScreen" style="display: none;">
+                            <div class="lesson-content">
+                                <div class="lesson-header">
+                                    <h2 id="lessonHeading">Pengenalan Akun Palsu</h2>
+                                    <p id="lessonSubtitle">Memahami apa itu akun palsu dan dampaknya</p>
+                                </div>
+                                
+                                <div class="lesson-body" id="lessonBody">
+                                    <!-- Content will be populated by JavaScript -->
+                                </div>
+
+                                <div class="lesson-actions">
+                                    <button class="prev-btn" onclick="previousLesson()" id="prevBtn" style="display: none;">Sebelumnya</button>
+                                    <button class="next-btn" onclick="nextLesson()" id="nextBtn">Selanjutnya</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Completion Screen -->
+                        <div class="completion-screen" id="completionScreen" style="display: none;">
+                            <div class="completion-content">
+                                <h2>Anda Telah Menyelesaikan Edukasi</h2>
+                                <div class="completion-summary">
+                                    <div class="summary-item">
+                                        <span class="summary-label">Materi Selesai:</span>
+                                        <span class="summary-value">4/4</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">Status:</span>
+                                        <span class="summary-value">Lengkap</span>
+                                    </div>
+                                </div>
+
+                                <div class="completion-actions">
+                                    <button id="selesaiBtn" class="restart-btn" onclick="restartLearning()">Selesai</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="help-modal" id="helpModal" style="display: none;">
+        <div class="help-content">
+            <h3>💡 Tips Navigasi</h3>
+            <div class="help-tips">
+                <div class="help-tip">
+                    <span class="tip-icon">📖</span>
+                    <div class="tip-text">
+                        <strong>Baca dengan Teliti:</strong> Setiap materi mengandung informasi penting
+                    </div>
+                </div>
+                <div class="help-tip">
+                    <span class="tip-icon">⏱️</span>
+                    <div class="tip-text">
+                        <strong>Lanjutkan Kapan Saja:</strong> Anda bisa melanjutkan materi di lain waktu
+                    </div>
+                </div>
+                <div class="help-tip">
+                    <span class="tip-icon">🎯</span>
+                    <div class="tip-text">
+                        <strong>Fokus pada Praktik:</strong> Perhatikan contoh-contoh yang diberikan
+                    </div>
+                </div>
+            </div>
+            <button class="close-help-btn" onclick="closeHelp()">Tutup</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

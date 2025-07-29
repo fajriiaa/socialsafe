@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun - Kasus Heri Irawan</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <div class="chat-header">
+                    <div class="chat-info">
+                        <div class="contact-avatar"><span class="material-icons">account_circle</span></div>
+                        <div class="contact-details">
+                            <div class="contact-name">Ustadz Ahmad</div>
+                            <div class="contact-status">online</div>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <div class="action-btn"><span class="material-icons">call</span></div>
+                        <div class="action-btn"><span class="material-icons">videocam</span></div>
+                        <div class="action-btn"><span class="material-icons">more_vert</span></div>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Pesan akan ditambahkan secara dinamis -->
+                </div>
+                
+                <div class="chat-input-area">
+                    <div class="input-container">
+                        <div class="input-field" id="messageInput" contenteditable="true" placeholder="Ketik pesan..."></div>
+                        <div class="input-actions">
+                            <div class="action-btn"><span class="material-icons">attach_file</span></div>
+                            <div class="action-btn"><span class="material-icons">photo_camera</span></div>
+                            <div class="send-btn" id="sendBtn"><span class="material-icons">send</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <h2>⚠️ PERINGATAN ⚠️</h2>
+                        <p>Anda sedang melakukan tindakan yang melanggar hukum!</p>
+                        <div class="warning-details">
+                            <p><strong>Kasus:</strong> Pencurian Identitas</p>
+                            <p><strong>Pasal:</strong> 68 jo. 66 UU PDP</p>
+                        </div>
+                        <button class="warning-btn" onclick="hideWarning()">Saya Mengerti</button>
+                    </div>
+                </div>
+                <div class="gameover-overlay" id="gameOverOverlay" style="display:none;">
+                    <div class="overlay-content">
+                        <p>Anda telah menipu Ustadz Ahmad dan mendapatkan 10 juta rupiah.</p>
+                        <div class="warning-details">
+                            <p><strong>Konsekuensi Hukum:</strong></p>
+                            <p>• Pasal 68 jo. 66 UU PDP</p>
+                            <p>• Hukuman: 5 tahun penjara</p>
+                            <p>• Denda: 1 miliar rupiah</p>
+                        </div>
+                        <button class="finish-btn" id="btnSelesai">Selesai</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

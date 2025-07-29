@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <div class="screen-content">
+                    <div class="container">
+                        <div class="game-main">
+                            <div id="intro-content" style="grid-column: 1 / span 3; grid-row: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;">
+                                <div class="intro-illustration">
+                                    <div class="icon-bg">
+                                        <span class="icon-lock">🔒</span>
+                                        <span class="icon-bubble">💬</span>
+                                        <span class="icon-avatar">👤</span>
+                                    </div>
+                                </div>
+                                <h1 class="title intro-title">Kuis Privasi Media Sosial</h1>
+                                <p class="desc intro-desc">Jaga identitasmu, lindungi akunmu!<br>Uji pengetahuanmu tentang cara menjaga privasi akun di media sosial dengan cara yang seru dan interaktif.</p>
+                                <button class="btn-mulai" id="btn-mulai">Mulai</button>
+                            </div>
+                            <div id="game-content" style="display:none;">
+                                <div class="game-center">
+                                    <div class="timer-circle" id="timer">30</div>
+                                    <div class="question-box" id="question-box"></div>
+                                    <div class="answers">
+                                        <button class="answer-btn" id="answer0"></button>
+                                        <button class="answer-btn" id="answer1"></button>
+                                        <button class="answer-btn" id="answer2"></button>
+                                        <button class="answer-btn" id="answer3"></button>
+                                    </div>
+                                </div>
+                                <div class="game-right">
+                                    <div class="prize-ladder-box">
+                                        <ul class="prize-ladder" id="prize-ladder">
+                                            <li class="prize active">1 Skor 10</li>
+                                            <li class="prize">2 Skor 20</li>
+                                            <li class="prize">3 Skor 30</li>
+                                            <li class="prize">4 Skor 40</li>
+                                            <li class="prize">5 Skor 50</li>
+                                            <li class="prize">6 Skor 60</li>
+                                            <li class="prize">7 Skor 70</li>
+                                            <li class="prize">8 Skor 80</li>
+                                            <li class="prize">9 Skor 90</li>
+                                            <li class="prize">10 Skor 100</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Overlay tutorial interaktif -->
+                            <div id="tutorial-overlay" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; z-index:200; background:rgba(20,24,40,0.55); align-items:center; justify-content:center;">
+                                <div id="tutorial-box" style="background:#fff; color:#232b4a; border-radius:8px; box-shadow:0 2px 8px #0003; padding:6px 10px; max-width:200px; width:auto; text-align:center; font-size:0.75rem; font-weight:600; position:relative;">
+                                    <div id="tutorial-text">Tutorial</div>
+                                    <button id="tutorial-next-btn" style="margin-top:8px; background:#2563eb; color:#fff; font-size:0.7rem; font-weight:700; border:none; border-radius:4px; padding:4px 12px; cursor:pointer;">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="game-over" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(20,24,40,0.98); z-index:100; flex-direction:column; align-items:center; justify-content:center; border-radius:22px;">
+                            <div style="font-size:1.2rem; color:#fff; font-weight:900; text-shadow:1px 1px 0 #232b4a; margin-bottom:8px; text-align:center;">Kamu Kalah...<br>Semoga Beruntung Lain Kali</div>
+                            <button id="play-again-btn" style="font-size:0.8rem; padding:6px 16px; border-radius:4px; background:#ffd700; color:#232b4a; font-weight:700; border:none; box-shadow:0 1px 4px #0002; cursor:pointer; margin-bottom:12px;">Main Lagi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

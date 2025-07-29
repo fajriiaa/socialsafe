@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <div id="minigame-password" class="minigame-password">
+                    <div class="game-content">
+                        <div class="screen" id="welcome-screen">
+                            <div class="two-sides-layout">
+                                <div class="side-left">
+                                    <div class="social-card profile-card">
+                                        <div class="profile-header">
+                                            <div class="profile-photo-wrapper">
+                                                <img class="profile-photo" src="https://ui-avatars.com/api/?name=User&background=1a73e8&color=fff&rounded=true&size=96" alt="Foto Profil">
+                                                <span class="online-status online"></span>
+                                            </div>
+                                            <div class="profile-info">
+                                                <h3 class="profile-name">Nama Pengguna</h3>
+                                                <p class="profile-username">@username</p>
+                                                <p class="profile-bio">"Jaga privasi, jaga diri!"</p>
+                                                <span class="profile-status">Keamanan: <span class="status-badge rendah">Rendah</span></span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-progress">
+                                            <div class="progress-label">Progress Keamanan Akun</div>
+                                            <div class="progress-bar-profile">
+                                                <div class="progress-fill" style="width: 40%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="side-right">
+                                    <div class="profile-stats">
+                                        <div class="stat">
+                                            <span>85%</span>
+                                            <p>Akun diretas karena password lemah</p>
+                                        </div>
+                                    </div>
+                                    <div class="info-box">
+                                        <p>Password lemah = Risiko tinggi!</p>
+                                    </div>
+                                    <div class="security-tips right-card">
+                                        <h3 style="text-align:left; margin-bottom:10px; font-size:1.01rem; padding-left:16px;">Tips:</h3>
+                                        <ul style="list-style:none; padding-left:16px; margin:0; text-align:left;">
+                                            <li style="margin-bottom:5px; font-size:0.93rem; color:#444; font-weight:500;">Lindungi data</li>
+                                            <li style="margin-bottom:5px; font-size:0.93rem; color:#444; font-weight:500;">Cegah pencurian</li>
+                                            <li style="margin-bottom:5px; font-size:0.93rem; color:#444; font-weight:500;">Amankan akun</li>
+                                        </ul>
+                                    </div>
+                                    <button class="btn-primary" style="font-size:0.88rem;" onclick="startGame()">
+                                        Setel Kata Sandi
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen hidden" id="password-input">
+                            <!-- Konten akan diisi oleh JavaScript -->
+                        </div>
+                        <div class="screen hidden" id="feedback-screen">
+                            <!-- Konten akan diisi oleh JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

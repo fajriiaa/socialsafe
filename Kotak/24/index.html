@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <div class="screen-content">
+                    <div class="status-bar">
+                        <div class="time">12:00</div>
+                        <div class="status-icons">
+                            <div class="wifi-icon">
+                                <i class="fas fa-wifi"></i>
+                            </div>
+                            <div class="battery-icon">
+                                <i class="fas fa-battery-three-quarters"></i>
+                                <span>85%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="app-container">
+                        <div class="content-area">
+                            <div class="wa-simulation">
+                                <div class="wa-header">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" class="wa-logo">
+                                    <div class="wa-contact-info">
+                                        <div class="wa-contact-number">+62 812-1347-94971</div>
+                                        <div class="wa-status">online</div>
+                                    </div>
+                                </div>
+                                <div class="wa-warning">
+                                    <span><i class="fas fa-lock"></i> Pesan terenkripsi end-to-end. Tidak ada yang bisa membaca atau mendengarkan, bahkan WhatsApp.</span>
+                                </div>
+                                <div class="wa-chat-area">
+                                    <div class="wa-message wa-message-in">
+                                        <div class="wa-file">
+                                            <div class="wa-file-icon"><i class="fas fa-file-archive"></i></div>
+                                            <div class="wa-file-info">
+                                                <div class="wa-file-title">Surat Undangan Pernikahan Digital .apk</div>
+                                                <div class="wa-file-size">6,6 MB</div>
+                                            </div>
+                                        </div>
+                                        <div class="wa-text">Kami harap kehadiran nya</div>
+                                        <div class="wa-time">12.56</div>
+                                    </div>
+                                    <div class="wa-message wa-message-out">
+                                        <div class="wa-text">Ini siapa........</div>
+                                        <div class="wa-time">12.56</div>
+                                    </div>
+                                    <div class="wa-message wa-message-in">
+                                        <div class="wa-text">Silahkan di buka agar lebih jelas dan kenal kk</div>
+                                        <div class="wa-time">12.56</div>
+                                    </div>
+                                    <div class="wa-message wa-message-out">
+                                        <div class="wa-text">Bpk salah kirim......</div>
+                                        <div class="wa-time">12.57</div>
+                                    </div>
+                                    <div class="wa-message wa-message-in">
+                                        <div class="wa-text">Silahkan di buka KK supaya lebih jelas dan tau saudara atau bukan</div>
+                                        <div class="wa-time">12.57</div>
+                                    </div>
+                                    <div class="wa-unread">1 UNREAD MESSAGE</div>
+                                    <div class="wa-message wa-message-in">
+                                        <div class="wa-text">Silahkan di buka agar lebih jelas <span class="wa-emoji">🙏</span></div>
+                                        <div class="wa-time">12.58</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Petunjuk Interaktif -->
+                    <div class="modal-petunjuk" id="modalPetunjuk" style="display:none;">
+                        <div class="modal-petunjuk-bg"></div>
+                        <div class="modal-petunjuk-content">
+                            <div id="modalPetunjukText"></div>
+                            <button id="tutupPetunjuk" class="modal-petunjuk-btn">Lanjut</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

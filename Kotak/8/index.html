@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <audio id="clickSound" src="sounds/click.wav" preload="auto"></audio>
+    <audio id="correctSound" src="sounds/correct.wav" preload="auto"></audio>
+    <audio id="wrongSound" src="sounds/wrong.wav" preload="auto"></audio>
+    <audio id="gameOverSound" src="sounds/gameover.wav" preload="auto"></audio>
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <div class="stars"></div>
+                <div class="twinkling"></div>
+                <div class="screen-content">
+                    <!-- Game Content dari folder 8 -->
+                    
+                    <div id="game-container">
+                        <!-- Halaman Utama (Petunjuk) -->
+                        <div id="intro-page" class="page active">
+                            <div class="intro-container">
+                                <div class="intro-card">
+                                    <p id="intro-text">Selamat datang di Detektif Phishing! Disini, kamu akan mendeteksi email phishing. Klik Continue untuk melihat petunjuk berikutnya.</p>
+                                </div>
+                                <button id="intro-continue" class="glow-button">Next</button>
+                            </div>
+                        </div>
+
+                        <!-- Halaman Game -->
+                        <div id="game-page" class="page">
+                            <div class="game-header">
+                                <div class="score-container">
+                                    <i class="fas fa-gem"></i>
+                                    <span>Skor: <span id="current-score">0</span></span>
+                                </div>
+                                <div class="timer-container">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Waktu: <span id="time-left">60</span>s</span>
+                                </div>
+                            </div>
+
+                            <div class="game-content">
+                                <div class="inbox-sidebar">
+                                    <div class="profile-info">
+                                        <div class="avatar">
+                                            <i class="fas fa-user-secret"></i>
+                                        </div>
+                                        <h3>Detektif Phishing</h3>
+                                    </div>
+                                    <div class="stats">
+                                        <div class="stat-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Benar: <span id="correct-count">0</span></span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <i class="fas fa-times-circle"></i>
+                                            <span>Salah: <span id="wrong-count">0</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="inbox-container">
+                                    <!-- Email akan ditambahkan secara dinamis -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Halaman Hasil -->
+                        <div id="result-page" class="page">
+                            <div class="result-container modern">
+                                <h2 class="result-title-modern">Hasil Investigasi</h2>
+                                <div class="result-stats-modern">
+                                    <div class="stat-box-modern">
+                                        <div class="stat-icon"><i class="fas fa-gem"></i></div>
+                                        <div class="stat-label">Skor Akhir</div>
+                                        <div class="stat-value" id="final-score">0</div>
+                                    </div>
+                                    <div class="stat-box-modern">
+                                        <div class="stat-icon"><i class="fas fa-search"></i></div>
+                                        <div class="stat-label">Email Terdeteksi</div>
+                                        <div class="stat-value">
+                                            <span class="correct"><i class="fas fa-check"></i> <span id="final-correct">0</span></span>
+                                            <span class="wrong"><i class="fas fa-times"></i> <span id="final-wrong">0</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="result-actions-modern">
+                                    <button id="back-to-home" class="glow-button modern">
+                                        Selesai
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

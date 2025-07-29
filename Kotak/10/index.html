@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Investigation Center</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="investigation-overlay"></div>
+    <div class="investigation-container">
+        <div class="investigation-modal">
+            <div class="prison-bars"></div>
+            <div class="spotlight"></div>
+            <div class="investigation-header">
+                <h1><span id="suspension-timer" style="font-size:1.2em;"></span><span id="investigation-title">CYBER INVESTIGATION</span></h1>
+                <div class="header-subtitle">Pusat Investigasi Digital</div>
+            </div>
+            <div class="investigation-content" id="investigationContent">
+                <!-- Initial Screen -->
+                <div class="investigation-message" id="initialMessage">
+                    <h2 class="warning-title">AKTIVITAS MENCURIGAKAN TERDETEKSI</h2>
+                    <p class="investigation-desc">
+                        Tim Cyber Investigation kami telah mendeteksi aktivitas mencurigakan dalam akun Anda. 
+                        Anda sedang dalam proses investigasi digital.
+                    </p>
+                    <div class="violation-details">
+                        <h3>Jenis Pelanggaran:</h3>
+                        <div class="violation-list">
+                            <div class="violation-item">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Penyebaran Informasi Palsu</span>
+                            </div>
+                        </div>
+                        <p class="warning-note">
+                            <i class="fas fa-gavel"></i>
+                            Pelanggaran ini melanggar Undang-Undang Informasi dan Transaksi Elektronik (UU ITE) Pasal 28 Ayat (1)
+                        </p>
+                    </div>
+                </div>
+                <div class="investigation-actions">
+                    <button id="startInvestigation" class="btn-primary">
+                        Mulai Investigasi
+                    </button>
+                </div>
+            </div>
+            <div class="investigation-footer">
+                <p>Cyber Investigation Center - Melindungi Keamanan Digital</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

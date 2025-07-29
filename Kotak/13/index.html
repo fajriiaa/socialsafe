@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edukasi Keamanan Media Sosial</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-speaker"></div>
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <div class="screen-content">
+                    <!-- Instagram Simulation Content -->
+                    <div class="ig-message-overlay" id="igMessageOverlay">
+                        <div class="ig-message-header">
+                            <span class="ig-message-back" id="igMessageBack"><i class="fas fa-arrow-left"></i></span>
+                            <span class="ig-message-profile"><img src="image.png" class="ig-message-profile-pic"></span>
+                            <span class="ig-message-userbox" id="igMessageUserBox">
+                                <span class="ig-message-username">goodlifebca__</span>
+                                <span class="ig-message-subusername">Bank BCA</span>
+                            </span>
+                        </div>
+                        <div class="ig-message-content">
+                            <div class="ig-message-bubble-row">
+                                <img src="image.png" class="ig-message-bubble-pic">
+                                <div class="ig-message-bubble">
+                                    Selamat pagi, kami dari pusat layanan BCA. Silahkan DM kami jika anda memiliki keluhan. Terima kasih.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dm-bottom-nav">Ayo cek keaslian akun! Klik profil untuk investigasi!</div>
+                    </div>
+                    
+                    <div class="intro-petunjuk" id="introPetunjuk">
+                        <div id="introBox">
+                            <span class="intro-info-icon"><i class="fas fa-info-circle"></i></span>
+                            <div id="introTitle">Deteksi Akun Palsu!</div>
+                            <div id="introDesc">Kamu menemukan akun yang mencurigakan. Yuk, lakukan investigasi dan laporkan jika terbukti palsu!</div>
+                            <div style="display: flex; justify-content: flex-end;">
+                                <button id="introNextBtn">Mulai</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ig-realistic-profile">
+                        <div class="ig-header-bar">
+                            <span class="ig-username-top">goodlifebca_</span>
+                            <span class="ig-menu-top"><i class="fas fa-ellipsis-h"></i></span>
+                        </div>
+                        <div class="ig-profile-main">
+                            <img src="image.png" class="ig-profile-pic" alt="Profile Picture">
+                            <div class="ig-profile-info">
+                                <div class="ig-profile-title-row">
+                                    <span class="ig-profile-title">Bank BCA</span>
+                                </div>
+                                <div class="ig-profile-category">Financial Service</div>
+                                <div class="ig-profile-bio">Instagram Resmi Bank BCA<br><span class="ig-profile-translate">BCA berizin dan diawasi oleh OJK & BI</span></div>
+                                <div class="ig-profile-link">linkin.bio/bankbca and 2 more</div>
+                            </div>
+                        </div>
+                        <div class="ig-profile-stats-row">
+                            <div class="ig-profile-stat"><span class="ig-profile-stat-count">67</span><span class="ig-profile-stat-label">posts</span></div>
+                            <div class="ig-profile-stat"><span class="ig-profile-stat-count ig-followers-link" id="followersBtn">2.8K</span><span class="ig-profile-stat-label">followers</span></div>
+                            <div class="ig-profile-stat"><span class="ig-profile-stat-count">6,728</span><span class="ig-profile-stat-label">following</span></div>
+                        </div>
+                        <div class="ig-profile-actions-row">
+                            <button class="ig-btn-follow">Follow</button>
+                            <button class="ig-btn-message" id="igMessageBtn">Message</button>
+                            <button class="ig-btn-dropdown"><i class="fas fa-user-plus"></i></button>
+                        </div>
+                        <div class="ig-story-highlights">
+                            <div class="ig-story"><div class="ig-story-pic" style="background-image: url('image.png');"></div><div class="ig-story-label">Gebyar BCA</div></div>
+                            <div class="ig-story"><div class="ig-story-pic" style="background-image: url('image.png');"></div><div class="ig-story-label">myBCA</div></div>
+                            <div class="ig-story"><div class="ig-story-pic" style="background-image: url('image.png');"></div><div class="ig-story-label">Edukatips</div></div>
+                            <div class="ig-story"><div class="ig-story-pic" style="background-image: url('image.png');"></div><div class="ig-story-label">Merchant</div></div>
+                            <div class="ig-story"><div class="ig-story-pic" style="background-image: url('image.png');"></div><div class="ig-story-label">Awas Modus</div></div>
+                        </div>
+                        <div class="ig-tabs">
+                            <span class="ig-tab active"><i class="fas fa-th"></i></span>
+                            <span class="ig-tab"><i class="fas fa-clone"></i></span>
+                            <span class="ig-tab"><i class="far fa-user-circle"></i></span>
+                        </div>
+                        <div class="ig-posts-grid">
+                            <div class="ig-post-thumb" style="background-image: url('image.png');"></div>
+                            <div class="ig-post-thumb" style="background-image: url('image.png');"></div>
+                            <div class="ig-post-thumb" style="background-image: url('image.png');"></div>
+                            <div class="ig-post-thumb" style="background-image: url('image.png');"></div>
+                            <div class="ig-post-thumb" style="background-image: url('image.png');"></div>
+                            <div class="ig-post-thumb" style="background-image: url('image.png');"></div>
+                            <div class="ig-post-thumb" style="background-image: url('image.png');"></div>
+                            <div class="ig-post-thumb" style="background-image: url('image.png');"></div>
+                            <div class="ig-post-thumb" style="background-image: url('image.png');"></div>
+                        </div>
+                        <div class="ig-popup-overlay" id="igPopupOverlay"></div>
+                        <div class="ig-popup-menu" id="igPopupMenu">
+                            <div class="ig-popup-menu-bar"></div>
+                            <div class="ig-popup-menu-item ig-popup-menu-danger">Restrict</div>
+                            <div class="ig-popup-menu-item ig-popup-menu-danger">Block</div>
+                            <div class="ig-popup-menu-item ig-popup-menu-danger" id="reportBtn">Report</div>
+                            <div class="ig-popup-menu-item" id="aboutAccountBtn">About this account</div>
+                            <div class="ig-popup-menu-item">Hide your story</div>
+                            <div class="ig-popup-menu-item">Copy profile URL</div>
+                            <div class="ig-popup-menu-item">Share this profile</div>
+                            <div class="ig-popup-menu-item">QR code</div>
+                        </div>
+                        <div class="ig-about-overlay" id="igAboutOverlay">
+                            <div class="ig-about-header">
+                                <span class="ig-about-back" id="igAboutBack"><i class="fas fa-arrow-left"></i></span>
+                                <span class="ig-about-title">About this account</span>
+                            </div>
+                            <div class="ig-about-content">
+                                <div class="ig-about-profilepic"><img src="image.png" alt="Profile Picture" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></div>
+                                <div class="ig-about-username">goodlifebca_</div>
+                                <div class="ig-about-desc">To help keep our community authentic, we're showing information about accounts on Instagram. <a href="#" class="ig-about-link">See why this information is important.</a></div>
+                                <div class="ig-about-list">
+                                    <div class="ig-about-list-item">
+                                        <span class="ig-about-icon"><i class="far fa-calendar-alt"></i></span>
+                                        <div>
+                                            <div class="ig-about-list-title">Date joined</div>
+                                            <div class="ig-about-list-desc">September 2021</div>
+                                        </div>
+                                    </div>
+                                    <div class="ig-about-list-item">
+                                        <span class="ig-about-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                        <div>
+                                            <div class="ig-about-list-title">Account based in</div>
+                                            <div class="ig-about-list-desc">Indonesia</div>
+                                        </div>
+                                    </div>
+                                    <div class="ig-about-list-item">
+                                        <span class="ig-about-icon"><i class="far fa-user"></i></span>
+                                        <div>
+                                            <div class="ig-about-list-title">Former usernames</div>
+                                        </div>
+                                        <span class="ig-about-arrow">12</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ig-report-overlay" id="igReportOverlay">
+                            <div class="ig-about-header">
+                                <span class="ig-about-back" id="igReportBack"><i class="fas fa-arrow-left"></i></span>
+                                <span class="ig-about-title">Report</span>
+                            </div>
+                            <div class="ig-report-content">
+                                <div class="ig-report-title">What do you want to report?</div>
+                                <div class="ig-report-list">
+                                    <div class="ig-report-list-item">It's posting content that shouldn't be on Instagram</div>
+                                    <div class="ig-report-list-item" id="pretendReportBtn">It's pretending to be someone else</div>
+                                    <div class="ig-report-list-item">It may be under the age of 13</div>
+                                    <div class="ig-report-list-item">It may be posting spam</div>
+                                    <div class="ig-report-list-item">Something else</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ig-submit-report-overlay" id="igSubmitReportOverlay">
+                            <div class="ig-about-header">
+                                <span class="ig-about-back" id="igSubmitReportBack"><i class="fas fa-arrow-left"></i></span>
+                                <span class="ig-about-title">Submit Report</span>
+                            </div>
+                            <div class="ig-submit-report-content">
+                                <div class="ig-submit-report-title">Report: Pretending to be someone else</div>
+                                <div class="ig-submit-report-desc">Thank you for letting us know. Please confirm to submit your report. Our team will review this account for impersonation.</div>
+                                <button class="ig-submit-report-btn" id="igSubmitReportBtn">Submit Report</button>
+                            </div>
+                        </div>
+                        <div class="profile-bottom-nav dm-bottom-nav">Ayo cek keaslian akun! Klik profil untuk investigasi!</div>
+                    </div>
+                    
+                    <div class="ig-followers-overlay" id="igFollowersOverlay">
+                        <div class="ig-followers-header">
+                            <span class="ig-followers-back" id="igFollowersBack"><i class="fas fa-arrow-left"></i></span>
+                            <span class="ig-followers-username">goodlifebca_</span>
+                        </div>
+                        <div class="ig-followers-tabs">
+                            <span class="ig-followers-tab active">2.8K followers</span>
+                            <span class="ig-followers-tab">6,728 following</span>
+                            <span class="ig-followers-tab">Suggested</span>
+                        </div>
+                        <div class="ig-followers-search"><input type="text" placeholder="Search"></div>
+                        <div class="ig-followers-list">
+                            <div class="ig-follower-item"><span class="ig-follower-pic default"></span><div class="ig-follower-info"><div class="ig-follower-username">94.lutfiap</div><div class="ig-follower-name">LUTFI AP</div></div><button class="ig-follower-btn">Follow</button></div>
+                            <div class="ig-follower-item"><span class="ig-follower-pic default"></span><div class="ig-follower-info"><div class="ig-follower-username">aldy_novan_166</div><div class="ig-follower-name">ALDY NOVAN</div></div><button class="ig-follower-btn">Follow</button></div>
+                            <div class="ig-follower-item"><span class="ig-follower-pic default"></span><div class="ig-follower-info"><div class="ig-follower-username">u9lyman_</div><div class="ig-follower-name">Fitrah Akbar</div></div><button class="ig-follower-btn">Follow</button></div>
+                            <div class="ig-follower-item"><span class="ig-follower-pic default"></span><div class="ig-follower-info"><div class="ig-follower-username">tamarizky66</div><div class="ig-follower-name">Tama Rizky</div></div><button class="ig-follower-btn">Follow</button></div>
+                            <div class="ig-follower-item"><span class="ig-follower-pic default"></span><div class="ig-follower-info"><div class="ig-follower-username">azgar1933</div><div class="ig-follower-name">Muhammad Gibran Alfarayy</div></div><button class="ig-follower-btn">Follow</button></div>
+                            <div class="ig-follower-item"><span class="ig-follower-pic default"></span><div class="ig-follower-info"><div class="ig-follower-username">mbak.sales</div><div class="ig-follower-name">🌹</div></div><button class="ig-follower-btn">Follow</button></div>
+                            <div class="ig-follower-item"><span class="ig-follower-pic default"></span><div class="ig-follower-info"><div class="ig-follower-username">zen_nicholl</div><div class="ig-follower-name">zen</div></div><button class="ig-follower-btn">Follow</button></div>
+                            <div class="ig-follower-item"><span class="ig-follower-pic default"></span><div class="ig-follower-info"><div class="ig-follower-username">rindurafli</div><div class="ig-follower-name">Tantri Jul Yahya</div></div><button class="ig-follower-btn">Follow</button></div>
+                        </div>
+                        <div class="followers-bottom-nav dm-bottom-nav">Banyak followers tanpa foto profil? Waspada, bisa jadi akun palsu! Mari kembali ke profil.</div>
+                    </div>
+                    <div id="popupSelesaiOverlay" style="display:none;">
+                        <div id="popupSelesaiBox">
+                            <div id="popupSelesaiTitle">Laporan Berhasil!</div>
+                            <div id="popupSelesaiDesc">Kamu telah menganalisis akun palsu dan berhasil melaporkannya. Terima kasih atas aksi detektifmu!<br><br>Semoga semakin waspada terhadap akun palsu di media sosial.</div>
+                            <button id="popupSelesaiBtn">Selesai</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,731 @@
+html, body, .game-container {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    overflow: hidden !important;
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+}
+
+.device-frame {
+    position: relative;
+    width: 650px;
+    height: 420px;
+    transform: scale(0.8);
+    background: linear-gradient(135deg, #222 0%, #444 60%, #222 100%);
+    border-radius: 32px;
+    padding: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 1.5px 0 #fff2 inset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    transform-origin: center center;
+    transition: transform 0.3s ease-out;
+    flex-shrink: 0;
+}
+
+/* Efek glossy highlight di frame atas */
+.device-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    border-radius: 32px 32px 0 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Efek glossy highlight di frame bawah */
+.device-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 18px;
+    border-radius: 0 0 32px 32px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.01) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.device-frame .tablet-speaker {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 7px;
+    background: linear-gradient(180deg, #444 0%, #181818 100%);
+    border-radius: 8px;
+    box-shadow: 
+        0 1.5px 4px rgba(0,0,0,0.22),
+        0 0 0 1.5px #222 inset,
+        0 2px 6px rgba(0,0,0,0.12) inset;
+    z-index: 20;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.device-frame .tablet-speaker::before {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 2px;
+    margin-top: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 100%);
+    border-radius: 2px;
+    opacity: 0.7;
+}
+
+.device-frame .tablet-speaker::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 1.5px;
+    margin-top: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 100%);
+    border-radius: 1px;
+    opacity: 0.5;
+}
+
+/* Tombol power/volume di sisi kanan */
+.tablet-btn {
+    position: absolute;
+    right: -4px;
+    top: 80px;
+    width: 6px;
+    height: 40px;
+    background: linear-gradient(90deg, #444 60%, #222 100%);
+    border-radius: 4px;
+    box-shadow: 1px 0 4px rgba(0,0,0,0.18);
+    z-index: 11;
+}
+
+.device-screen {
+    background: #fff;
+    border-radius: 22px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 0 2px #222, 0 2px 12px rgba(0,0,0,0.08) inset;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.screen-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Status Bar */
+.status-bar {
+    height: auto;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 15px;
+    font-size: 10px;
+    font-weight: 600;
+    position: relative;
+    z-index: 100;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.status-icons {
+    display: flex;
+    gap: 6px;
+    color: #000;
+    align-items: center;
+}
+
+.wifi-icon {
+    font-size: 12px;
+}
+
+.battery-icon {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
+}
+
+.battery-icon span {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+/* App Container */
+.app-container {
+    height: calc(100% - 22px);
+    display: flex;
+    flex-direction: column;
+}
+
+.content-area {
+    flex: 1;
+    background-color: #f0f2f5;
+    overflow: hidden;
+}
+
+/* WhatsApp Simulation */
+.wa-simulation {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+}
+
+.wa-header {
+    background: #075e54;
+    color: white;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wa-logo {
+    width: 32px;
+    height: 32px;
+    filter: brightness(0) invert(1);
+}
+
+.wa-contact-info {
+    flex: 1;
+}
+
+.wa-contact-number {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.wa-status {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.wa-warning {
+    background: #fff3cd;
+    color: #856404;
+    padding: 4px 15px;
+    font-size: 9px;
+    border-bottom: 1px solid #ffeaa7;
+    line-height: 1.3;
+}
+
+.wa-warning i {
+    margin-right: 3px;
+}
+
+.wa-chat-area {
+    flex: 1;
+    padding: 8px 4px 6px 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+    background: #ece5dd;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+.wa-chat-area::-webkit-scrollbar {
+    width: 6px;
+}
+
+.wa-chat-area::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.wa-chat-area::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.wa-chat-area::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.wa-message {
+    max-width: 80%;
+    padding: 8px 12px;
+    border-radius: 18px;
+    position: relative;
+    margin: 2px 8px;
+}
+
+.wa-message-in {
+    align-self: flex-start;
+    background: #fff;
+    border-bottom-left-radius: 4px;
+}
+
+.wa-message-out {
+    align-self: flex-end;
+    background: #dcf8c6;
+    border-bottom-right-radius: 4px;
+}
+
+.wa-text {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.wa-time {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 4px;
+    text-align: right;
+}
+
+.wa-file {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.wa-file-icon {
+    font-size: 24px;
+    color: #6c757d;
+}
+
+.wa-file-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #495057;
+    cursor: pointer;
+    /* default: aktif, tapi akan dioverride dengan .file-inactive */
+}
+.wa-file-title.file-inactive {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.wa-file-title.file-active {
+    pointer-events: auto;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.wa-file-size {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 2px;
+}
+
+.wa-unread {
+    background: #ff4444;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    margin: 8px auto;
+    width: fit-content;
+}
+
+.wa-emoji {
+    font-size: 16px;
+}
+
+.apk-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.apk-modal-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 22px;
+}
+
+.apk-modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    width: 280px;
+    text-align: center;
+    position: relative;
+    z-index: 1001;
+    animation: apkPop 0.3s ease-out;
+}
+
+@keyframes apkPop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.apk-modal-icon {
+    font-size: 48px;
+    color: #007bff;
+    margin-bottom: 16px;
+}
+
+.apk-modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.apk-modal-desc {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.apk-modal-progress {
+    background: #e9ecef;
+    border-radius: 8px;
+    height: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.apk-modal-bar {
+    background: #007bff;
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.3s ease;
+}
+
+.apk-bar-anim {
+    animation: apkBarAnim 1.8s ease-in-out;
+}
+
+@keyframes apkBarAnim {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+.apk-modal-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.apk-modal-btns button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.apk-modal-btns button:hover {
+    background: #0056b3;
+}
+
+.apk-modal-btns .apk-modal-install {
+    background: #28a745;
+}
+
+.apk-modal-btns .apk-modal-open {
+    background: #28a745;
+}
+
+.apk-modal-btns .apk-modal-done {
+    background: #6c757d;
+}
+
+.apk-modal-content.apk-confirm {
+    animation: none;
+}
+
+.apk-modal-cancel-text {
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+.apk-modal-cancel-text:hover {
+    background: #f8f9fa;
+}
+
+.btn-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.malware-attack-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff0000, #8b0000, #ff0000);
+    animation: malwareBgFlash 0.5s infinite;
+    z-index: 1;
+}
+
+@keyframes malwareBgFlash {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+.malware-attack-container {
+    position: relative;
+    z-index: 2;
+    padding: 40px 20px;
+    text-align: center;
+    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: malwareShake 0.5s infinite;
+}
+
+@keyframes malwareShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+.malware-skull {
+    font-size: 64px;
+    margin-bottom: 20px;
+    animation: malwareSkullPulse 1s infinite;
+}
+
+@keyframes malwareSkullPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.malware-attack-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: malwareGlitch 0.3s infinite;
+}
+
+@keyframes malwareGlitch {
+    0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
+    50% { text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.5); }
+}
+
+.malware-attack-desc ul {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.malware-attack-desc li {
+    margin: 8px 0;
+    font-size: 14px;
+    animation: malwareListAnim 0.5s ease-in;
+}
+
+@keyframes malwareListAnim {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.malware-attack-desc i {
+    margin-right: 8px;
+    color: #ffcc00;
+}
+
+.malware-attack-warning {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #ffcc00;
+    animation: malwareWarningFlash 1s infinite;
+}
+
+@keyframes malwareWarningFlash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.malware-learn-btn {
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: malwareBtnPulse 2s infinite;
+}
+
+.malware-learn-btn:hover {
+    background: #cc0000;
+    transform: scale(1.05);
+}
+
+@keyframes malwareBtnPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7); }
+    50% { box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
+}
+
+
+/* Modal Petunjuk Alur Simulasi */
+.modal-petunjuk {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center center;
+    transition: transform 0.3s ease-out;
+    border-radius: 22px;
+    overflow: hidden;
+}
+.modal-petunjuk-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.45);
+    z-index: 1;
+    border-radius: 22px;
+}
+.modal-petunjuk-content {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 20px 20px 20px;
+    max-width: 320px;
+    width: 85%;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    text-align: left;
+    font-size: 14px;
+    color: #222;
+    animation: apkPop 0.3s;
+    transition: all 0.3s ease-out;
+}
+.modal-petunjuk-content h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #c0392b;
+    text-align: center;
+}
+.modal-petunjuk-content ol {
+    margin-left: 16px;
+    margin-bottom: 16px;
+    padding-left: 0;
+}
+.modal-petunjuk-content li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+.modal-petunjuk-btn {
+    display: block;
+    margin: 0 auto;
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 18px;
+}
+.modal-petunjuk-btn:hover {
+    background: #a93226;
+}
+
+@media (max-width: 768px) {
+    .device-frame {
+        transform: scale(0.8);
+    }
+    .tablet-btn {
+        transform: scale(0.8);
+    }
+}
+
+
+.device-frame-lock {
+    width: 650px;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* overflow: hidden; */
+    transform-origin: center center;
+    /* transform: scale(1); akan diubah JS */
+}

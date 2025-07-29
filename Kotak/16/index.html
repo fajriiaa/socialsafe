@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <div class="screen-content">
+                    <!-- Intro/Tutorial Screen -->
+                    <div class="intro-screen" id="intro-screen">
+                        <div class="intro-content simple">
+                            <p class="intro-desc-simple">
+                                Pelajari cara menjaga <span class="highlight">privasi akun</span> <span class="highlight">media sosial</span>mu.<br>
+                                Klik mulai untuk melihat <span class="highlight">materi edukasi singkat</span>!
+                            </p>
+                            <button class="start-learning-btn" id="start-learning-btn">Mulai</button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Indicator -->
+                    <div class="progress-indicator" id="progress-indicator" style="display: none;">
+                        <div class="progress-segment" id="segment-1"></div>
+                        <div class="progress-segment" id="segment-2"></div>
+                        <div class="progress-segment" id="segment-3"></div>
+                        <div class="progress-segment" id="segment-4"></div>
+                    </div>
+                    
+                    <div class="edu-row" id="edu-case-1" style="display: none;">
+                        <button class="nav-btn nav-prev" disabled aria-label="Sebelumnya"><span class="material-icons">chevron_left</span></button>
+                        <div class="edu-left edu-alert">
+                            <h2>Mengisi Data Bio Berlebih</h2>
+                            <p class="edu-desc">Mengisi data profil media sosial secara lengkap (nama, alamat, tanggal lahir, nomor HP, dll) dapat membahayakan privasi dan memudahkan penyalahgunaan data oleh pihak tidak bertanggung jawab.</p>
+                        </div>
+                        <div class="edu-right">
+                            <img src="satu.png" alt="Contoh Buruk Privasi Akun" class="edu-image">
+                        </div>
+                        <button class="nav-btn nav-next" aria-label="Selanjutnya"><span class="material-icons">chevron_right</span></button>
+                    </div>
+                    <div class="edu-row" id="edu-case-2" style="display:none;">
+                        <button class="nav-btn nav-prev" disabled aria-label="Sebelumnya"><span class="material-icons">chevron_left</span></button>
+                        <div class="edu-left edu-alert">
+                            <h2>Unggah Foto Dokumen Penting!</h2>
+                            <p class="edu-desc">Mengunggah foto KTP, SIM, kartu pelajar, atau dokumen penting lain di media sosial sangat berbahaya. Data pada dokumen tersebut bisa disalahgunakan untuk penipuan, pencurian identitas, atau kejahatan digital lainnya.</p>
+                        </div>
+                        <div class="edu-right">
+                            <img src="dua.png" alt="Jangan Unggah Foto Dokumen Penting" class="edu-image">
+                        </div>
+                        <button class="nav-btn nav-next" aria-label="Selanjutnya"><span class="material-icons">chevron_right</span></button>
+                    </div>
+                    <div class="edu-row" id="edu-case-3" style="display:none;">
+                        <button class="nav-btn nav-prev" disabled aria-label="Sebelumnya"><span class="material-icons">chevron_left</span></button>
+                        <div class="edu-left edu-alert">
+                            <h2>Sering Share Lokasi!</h2>
+                            <p class="edu-desc">Membagikan lokasi secara rutin di story atau postingan (misal: rumah, sekolah, tempat nongkrong) bisa dimanfaatkan orang jahat untuk melacak aktivitas dan keberadaan Anda.</p>
+                        </div>
+                        <div class="edu-right">
+                            <img src="tiga.png" alt="Jangan Sering Share Lokasi" class="edu-image">
+                        </div>
+                        <button class="nav-btn nav-next" aria-label="Selanjutnya"><span class="material-icons">chevron_right</span></button>
+                    </div>
+                    <div class="edu-row" id="edu-case-4" style="display:none;">
+                        <button class="nav-btn nav-prev" disabled aria-label="Sebelumnya"><span class="material-icons">chevron_left</span></button>
+                        <div class="edu-left edu-alert">
+                            <h2>Tantangan Viral "Tentang Saya"</h2>
+                            <p class="edu-desc">Jangan asal ikut tantangan viral seperti "10 fakta tentang diriku". Jawabanmu bisa jadi bocoran data untuk membobol akun!</p>
+                        </div>
+                        <div class="edu-right">
+                            <img src="empat.png" alt="Tantangan Viral Tentang Saya" class="edu-image">
+                        </div>
+                        <button class="nav-btn nav-next" aria-label="Selanjutnya"><span class="material-icons">chevron_right</span></button>
+                        <div class="selesai-container">
+                            <button class="selesai-btn" id="selesai-btn">Selesai</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

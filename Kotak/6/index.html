@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <canvas id="gameCanvas" width="900" height="500"></canvas>
+                <div id="guideOverlay" style="display:flex; position:absolute; left:0; top:0; width:100%; height:100%; background:rgba(30,60,180,0.18); backdrop-filter:blur(2px); z-index:100; justify-content:center; align-items:center; transition:opacity 0.4s;">
+                    <div id="guideBox" style="background:rgba(255,255,255,0.98); border-radius:14px; box-shadow:0 4px 24px #20639b22; padding:14px 10px 10px 10px; max-width:220px; min-width:120px; margin:auto; text-align:center; position:relative; display:flex; flex-direction:column; align-items:center; opacity:0; transform:translateY(30px); transition:all 0.4s;">
+                        <div id="guideText" style="color:#1a2a6c; font-size:13px; font-weight:500; margin-bottom:14px; line-height:1.6; text-align:center; letter-spacing:0.1px;"></div>
+                        <button id="btnGuideNext" style="background:linear-gradient(90deg,#ffc107 0%,#ff5858 100%); color:#fff; border:none; border-radius:14px; font-size:15px; font-weight:bold; padding:7px 22px; margin-top:6px; cursor:pointer; box-shadow:0 2px 8px #ffc10733; transition:background 0.2s;">Next</button>
+                    </div>
+                </div>
+                <div id="popupScam" style="display:none; position:absolute; left:0; top:0; width:100%; height:100%; background:rgba(0,40,120,0.45); z-index:10; justify-content:center; align-items:center;">
+                    <div id="popupScamBox" style="background:#fff; border-radius:18px; box-shadow:0 4px 24px #20639b22; padding:20px 18px 16px 18px; max-width:290px; min-width:180px; margin:auto; text-align:center; position:relative; display:flex; flex-direction:column; align-items:center;">
+                        <div id="popupScamTitle" style="font-weight:700; color:#20639b; font-size:17px; text-align:center; margin-bottom:10px; letter-spacing:0.2px;"> </div>
+                        <div id="popupScamMsg" style="color:#234; font-size:14px; margin-bottom:16px; text-align:left; line-height:1.6; width:100%;"> </div>
+                        <button id="btnScamOk" style="background:linear-gradient(90deg,#4ecdc4 0%,#45b7af 100%); color:#fff; border:none; border-radius:12px; font-size:15px; font-weight:bold; padding:10px 24px; cursor:pointer; box-shadow:0 2px 8px #4ecdc433; transition:background 0.2s;">OK</button>
+                        <button id="btnScamYes" style="display:none"></button>
+                        <button id="btnScamNo" style="display:none"></button>
+                    </div>
+                </div>
+                <div id="popupFinish" style="display:none; position:absolute; left:0; top:0; width:100%; height:100%; background:rgba(0,40,120,0.45); z-index:20; justify-content:center; align-items:center;">
+                    <div id="popupFinishBox" class="result-popup-box">
+                        <div class="result-title">Selamat!</div>
+                        <div class="result-desc">Kamu telah menyelesaikan game ini.<br><strong>Terima kasih sudah belajar tentang phishing!</strong></div>
+                        <button id="btnFinishContinue" class="result-btn">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

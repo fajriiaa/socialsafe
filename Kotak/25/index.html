@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <div class="app-container">
+                    <div class="app-header">
+                        <div class="header-left">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        <div class="app-title">Pengaturan</div>
+                        <div class="header-right">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="password-settings">
+                            <div class="header">
+                                <h2>Pengaturan Keamanan</h2>
+                                <p class="subtitle">Jaga keamanan akun Anda dengan mengubah password secara berkala</p>
+                            </div>
+                            
+                            <div class="password-card">
+                                <div class="password-status">
+                                    <div class="status-icon">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="status-info">
+                                        <h3>Status Password</h3>
+                                        <p class="last-changed">Terakhir diubah: 30 hari yang lalu</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="password-form">
+                                    <div class="input-group">
+                                        <label>Password Saat Ini</label>
+                                        <div class="password-input">
+                                            <input type="password" placeholder="Masukkan password saat ini">
+                                            <i class="fas fa-eye-slash toggle-password"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <label>Password Baru</label>
+                                        <div class="password-input">
+                                            <input type="password" placeholder="Masukkan password baru">
+                                            <i class="fas fa-eye-slash toggle-password"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <label>Konfirmasi Password Baru</label>
+                                        <div class="password-input">
+                                            <input type="password" placeholder="Konfirmasi password baru">
+                                            <i class="fas fa-eye-slash toggle-password"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="password-strength">
+                                        <div class="strength-meter">
+                                            <div class="strength-bar"></div>
+                                        </div>
+                                        <p class="strength-text">Kekuatan password: Sedang</p>
+                                    </div>
+                                    
+                                    <button class="update-btn">
+                                        <i class="fas fa-save"></i>
+                                        Perbarui Password
+                                    </button>
+                                </div>
+                                
+                                <div class="success-screen" style="display:none;">
+                                    <div class="success-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="success-text">Password berhasil diperbarui</div>
+                                    <button class="continue-btn">Selesai</button>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Privasi Akun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="device-frame-lock">
+        <div class="device-frame">
+            <div class="tablet-btn"></div>
+            <div class="device-screen">
+                <!-- Popup Petunjuk Intro -->
+                <div id="intro-popup" class="popup-petunjuk" style="display: flex;">
+                    <div class="popup-petunjuk-content">
+                        <h3></i> Kamu Terkena Serangan Phishing!</h3>
+                        <p>Anda mendapatkan pesan dari <b>Admin</b>.<br>Tanpa curiga, kamu mengeklik link dan langsung diarahkan ke halaman login.</p>
+                        <button id="btn-lanjutkan-intro" class="fake-login-btn">Lanjutkan</button>
+                    </div>
+                </div>
+                
+                <div class="wa-app-container">
+                    <!-- Sidebar kiri -->
+                    <div class="wa-sidebar">
+                        <div class="wa-sidebar-header">
+                            <span class="wa-sidebar-title">Chats</span>
+                            <input type="text" class="wa-sidebar-search" placeholder="Search or start new chat">
+                        </div>
+                        <div class="wa-chat-list">
+                            <div class="wa-chat-list-item wa-chat-list-active">
+                                <img src="https://ui-avatars.com/api/?name=Admin&background=0D8ABC&color=fff&size=40" class="wa-chat-list-avatar" alt="Admin">
+                                <div class="wa-chat-list-info">
+                                    <div class="wa-chat-list-name">Admin Support</div>
+                                    <div class="wa-chat-list-preview">Halo, kami mendeteksi aktivitas...</div>
+                                </div>
+                                <div class="wa-chat-list-time">19:48</div>
+                            </div>
+                            <div class="wa-chat-list-item">
+                                <img src="https://ui-avatars.com/api/?name=Mama&background=F39C12&color=fff&size=40" class="wa-chat-list-avatar" alt="Mama">
+                                <div class="wa-chat-list-info">
+                                    <div class="wa-chat-list-name">Mama</div>
+                                    <div class="wa-chat-list-preview">Jangan lupa makan ya!</div>
+                                </div>
+                                <div class="wa-chat-list-time">18:12</div>
+                            </div>
+                            <div class="wa-chat-list-item">
+                                <img src="https://ui-avatars.com/api/?name=Fadel&background=16A085&color=fff&size=40" class="wa-chat-list-avatar" alt="Fadel">
+                                <div class="wa-chat-list-info">
+                                    <div class="wa-chat-list-name">Rizki</div>
+                                    <div class="wa-chat-list-preview">Aamiin ya rabbal alamin...</div>
+                                </div>
+                                <div class="wa-chat-list-time">17:00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Area kanan -->
+                    <div class="wa-main-chat">
+                        <div class="wa-chat-header">
+                            <div class="wa-chat-header-left">
+                                <img src="https://ui-avatars.com/api/?name=Admin&background=0D8ABC&color=fff&size=40" class="wa-chat-header-avatar" alt="Admin">
+                                <div class="wa-chat-header-info">
+                                    <div class="wa-chat-header-name">Admin Support</div>
+                                    <div class="wa-chat-header-status">online</div>
+                                </div>
+                            </div>
+                            <div class="wa-chat-header-actions">
+                                <button class="wa-header-btn"><i class="fas fa-video"></i></button>
+                                <button class="wa-header-btn"><i class="fas fa-phone"></i></button>
+                                <button class="wa-header-btn"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="wa-chat-info">
+                            <i class="fas fa-lock"></i>
+                            Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them. Select to learn more.
+                        </div>
+                        <div class="wa-chat-bubble wa-incoming">
+                            <div class="wa-bubble-text">
+                                Halo, kami mendeteksi aktivitas tidak biasa pada akun Anda. Mohon segera verifikasi agar akun Anda tidak diblokir:
+                                <a href="#" id="phishing-link" class="wa-phishing-link">https://secure-facebook-help.com/verify</a>
+                            </div>
+                            <span class="wa-bubble-time">19:48</span>
+                        </div>
+                        <div class="wa-chat-area-wrapper">
+                            <!-- Chat WhatsApp style -->
+                            <div id="step-chat" class="wa-chat-area">
+                                <!-- Bubble chat lain jika ada bisa diletakkan di sini -->
+                            </div>
+                        </div>
+                        <form class="wa-chat-input-bar">
+                            <button type="button" class="wa-input-btn"><i class="far fa-smile"></i></button>
+                            <button type="button" class="wa-input-btn"><i class="fas fa-paperclip"></i></button>
+                            <input type="text" class="wa-input-text" placeholder="Type a message">
+                            <button type="button" class="wa-input-btn"><i class="fas fa-microphone"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Halaman login palsu, disembunyikan -->
+                <div id="step-login" class="phishing-step-view" style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">
+                    <div class="fake-login-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" class="fake-login-logo" alt="Logo">
+                        <div class="fake-login-header">Masuk ke Facebook</div>
+                        <form id="fake-login-form" class="fake-login-form">
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Email atau Nomor Telepon" id="fake-username" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Kata Sandi" id="fake-password" required>
+                            </div>
+                            <button type="submit" class="fake-login-btn">Masuk</button>
+                        </form>
+                        <div class="fake-login-links">
+                            <span class="fake-login-link">Lupa kata sandi?</span>
+                            <span>·</span>
+                            <span class="fake-login-link">Buat akun baru</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Warning phishing alert -->
+                <div id="step-alert" class="phishing-step-view" style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">
+                    <div class="phishing-alert-full">
+                        <div class="phishing-icon-big"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h2>PERANGKAT ANDA TERKENA SERANGAN PHISHING!</h2>
+                        <p class="phishing-desc">
+                            Kami mendeteksi aktivitas mencurigakan pada perangkat Anda.<br>
+                            Data pribadi dan akun Anda dalam bahaya.
+                        </p>
+                        <div class="phishing-explain">
+                            <b>Mengapa ini bisa terjadi?</b><br>
+                            Anda mungkin mengklik tautan palsu atau mengisi data di halaman login tiruan.<br>
+                            Penyerang bisa mendapatkan password, kode OTP, atau data penting Anda.
+                        </div>
+                        <button class="phishing-action" onclick="return false;">Pelajari Lebih Lanjut</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Hapus popup petunjuk
+    </script>
+</body>
+</html> 

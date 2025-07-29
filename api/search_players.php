@@ -13,32 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 
 try {
-    // Cek apakah tabel karakter ada
-    $stmt = $pdo->query("SHOW TABLES LIKE 'karakter'");
-    if ($stmt->rowCount() == 0) {
-        echo json_encode([
-            'success' => true,
-            'players' => [],
-            'total_players' => 0,
-            'message' => 'Tabel karakter belum ada'
-        ]);
-        exit;
-    }
-    
-    // Cek apakah ada data dalam tabel
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM karakter");
-    $totalData = $stmt->fetch();
-    
-    if ($totalData['total'] == 0) {
-        echo json_encode([
-            'success' => true,
-            'players' => [],
-            'total_players' => 0,
-            'message' => 'Belum ada data pemain'
-        ]);
-        exit;
-    }
-    
     // Ambil semua data player untuk search (tanpa limit)
     $sql = "SELECT nama, poin, waktu FROM karakter WHERE poin >= 0 AND status_game = 'selesai' ORDER BY poin DESC, waktu ASC";
     $stmt = $pdo->prepare($sql);
@@ -46,13 +20,9 @@ try {
     
     $allPlayers = $stmt->fetchAll();
     
-    // Jika tidak ada data yang selesai, ambil semua data untuk testing
-    if (empty($allPlayers)) {
-        $sql = "SELECT nama, poin, waktu FROM karakter WHERE poin >= 0 ORDER BY poin DESC, waktu ASC";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $allPlayers = $stmt->fetchAll();
-    }
+    // Debug: tampilkan query dan jumlah hasil
+    error_log("Search players query: " . $sql);
+    error_log("Search players results count: " . count($allPlayers));
     
     // Format waktu untuk tampilan dan tambahkan peringkat asli
     foreach ($allPlayers as $index => &$player) {
@@ -81,8 +51,7 @@ try {
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
-        'error' => 'Database error: ' . $e->getMessage(),
-        'success' => false
+        'error' => $e->getMessage()
     ]);
 }
 ?> 

@@ -1,6 +1,6 @@
 <?php
 // Konfigurasi Database
-$host = 'https://sql308.infinityfree.com';
+$host = 'sql308.infinityfree.com';
 $dbname = 'if0_39583769_socisafe';
 $username = 'if0_39583769';
 $password = 'Zh4SJN8HHjEPFN';
